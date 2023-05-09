@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum PageName
 {
-    MENU,
-    SETTING
+    MENUPAGE,
+    SETTINGPAGE,
+    CREDITPAGE,
+    CONFIRMPAGE
 }

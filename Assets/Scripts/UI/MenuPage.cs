@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UWAK.UI;
+using UWAK.SAVELOAD;
 
 namespace UWAK.UI
 {
@@ -13,7 +14,11 @@ namespace UWAK.UI
         private void Start()
         {
             CanvasManager canvasManager = GetComponentInParent<CanvasManager>();
-            playBTN.onClick.AddListener(() => ChangeScene("Game"));
+            settingPanel.onClick.AddListener(() => canvasManager.SetPage(PageName.SETTINGPAGE));
+            exitBTN.onClick.AddListener(() => {
+                canvasManager.SetPage(PageName.CONFIRMPAGE);
+                ConfirmPage.Instance.Confirm(ConfirmType.EXITTYPE);
+                });
         }
     }
 

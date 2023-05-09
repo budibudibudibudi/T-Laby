@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8010884659594767259
 RectTransform:
   m_ObjectHideFlags: 0
@@ -174,10 +174,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pageName: 0
-  playBTN: {fileID: 0}
-  settingPanel: {fileID: 0}
-  continueBTN: {fileID: 0}
-  exitBTN: {fileID: 0}
+  playBTN: {fileID: 8010884659470701612}
+  settingPanel: {fileID: 8010884660568029048}
+  continueBTN: {fileID: 8010884660383256333}
+  exitBTN: {fileID: 8010884661198363568}
 --- !u!1 &8010884660093762214
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8010884660383256332}
   m_OnClick:
     m_PersistentCalls:
