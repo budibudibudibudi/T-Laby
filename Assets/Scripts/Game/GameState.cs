@@ -7,5 +7,7 @@ public enum GameState
     CONFIRMPAGE,
     GAME,
     GAMEPAUSED,
-    GAMERESUME
+    GAMERESUME,
+    WIN,
+    LOSE
 }

@@ -8,5 +8,7 @@ public enum PageName
     SETTINGPAGE,
     CREDITPAGE,
     CONFIRMPAGE,
-    PAUSEDPAGE
+    PAUSEDPAGE,
+    GAMEOVERPAGE,
+    WINPAGE
 }

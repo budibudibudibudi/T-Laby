@@ -46,6 +46,12 @@ namespace UWAK.UI
                 case GameState.GAME:
                     ChangeScene("Game");
                     break;
+                case GameState.WIN:
+                    SetPage(PageName.WINPAGE);
+                    break;
+                case GameState.LOSE:
+                    SetPage(PageName.GAMEOVERPAGE);
+                    break;
                 default:
                     break;
             }
