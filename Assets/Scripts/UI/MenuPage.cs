@@ -13,10 +13,23 @@ namespace UWAK.UI
 
         private void Start()
         {
-            CanvasManager canvasManager = GetComponentInParent<CanvasManager>();
-            settingPanel.onClick.AddListener(() => canvasManager.SetPage(PageName.SETTINGPAGE));
+            SaveName saveName = SaveAndLoad.ReadFromJSON<SaveName>("SaveData");
+            if(saveName == default)
+            {
+                playBTN.onClick.AddListener(()=> GameManager.Instance.ChangeState(GameState.GAME));
+            }
+            else
+            {
+                playBTN.onClick.AddListener(() =>
+                {
+                    GameManager.Instance.ChangeState(GameState.CONFIRMPAGE);
+                    ConfirmPage.Instance.Confirm(ConfirmType.NEWGAMETYPE);
+                });
+                continueBTN.interactable = true;
+            }
+            settingPanel.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.SETTINGPAGE));
             exitBTN.onClick.AddListener(() => {
-                canvasManager.SetPage(PageName.CONFIRMPAGE);
+                GameManager.Instance.ChangeState(GameState.CONFIRMPAGE);
                 ConfirmPage.Instance.Confirm(ConfirmType.EXITTYPE);
                 });
         }

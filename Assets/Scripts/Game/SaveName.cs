@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public enum SaveName
 {
-    NEWGAME,
-    LEVEL1
+    LEVEL1,
+    LEVEL2,
+    LEVEL3
 }

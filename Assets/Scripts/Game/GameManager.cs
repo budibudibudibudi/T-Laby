@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] GameState gameState;
+    public GameState getGameState() { return gameState; }
     public delegate void OnGameStateChange(GameState state);
     public OnGameStateChange onGameStateChange;
     private void Awake()
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState state)
     {
+        if (state == gameState)
+            return;
         gameState = state;
         onGameStateChange?.Invoke(gameState);
     }

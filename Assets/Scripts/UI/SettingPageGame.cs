@@ -7,16 +7,15 @@ using System;
 
 namespace UWAK.UI
 {
-    public class SettingPage : Page
+    public class SettingPageGame : Page
     {
-        [SerializeField] Button backBTN, creditBTN;
+        [SerializeField] Button backBTN;
         [SerializeField] TMP_Dropdown ResolutionDD;
         [SerializeField] Toggle FullScreenTOOGLE;
         [SerializeField] Slider volumeSlider;
         void Start()
         {
-            backBTN.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.MENUPAGE));
-            creditBTN.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.CREDITPAGE));
+            backBTN.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.GAMEPAUSED));
 
             ResolutionDD.onValueChanged.AddListener(OnResolutionChange);
 
@@ -62,15 +61,15 @@ namespace UWAK.UI
 
         private void OnResolutionChange(int index)
         {
-            if(index == 0)
+            if (index == 0)
             {
                 Screen.SetResolution(1920, 1080, true);
             }
-            else if(index == 1)
+            else if (index == 1)
             {
                 Screen.SetResolution(1280, 720, true);
             }
-            else if(index == 2)
+            else if (index == 2)
             {
                 Screen.SetResolution(800, 600, true);
             }

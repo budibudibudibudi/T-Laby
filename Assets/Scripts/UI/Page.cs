@@ -7,11 +7,6 @@ namespace UWAK.UI
 {
     public class Page : MonoBehaviour
     {
-        [SerializeField] public PageName pageName;
-
-        protected virtual void ChangeScene(string sceneName)
-        {
-            SceneManager.LoadScene(sceneName);
-        }
+        public PageName pageName;
     }
 }

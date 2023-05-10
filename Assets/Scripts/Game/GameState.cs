@@ -1,6 +1,11 @@
 
 public enum GameState
 {
-    MENU,
-    GAME
+    MENUPAGE,
+    SETTINGPAGE,
+    CREDITPAGE,
+    CONFIRMPAGE,
+    GAME,
+    GAMEPAUSED,
+    GAMERESUME
 }

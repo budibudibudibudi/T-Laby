@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -12,6 +13,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		[SerializeField]bool isPaused = false;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -43,10 +45,15 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+		public void OnPause(InputValue value)
+        {
+			PauseInput(value.isPressed);
+        }
+
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -61,19 +68,22 @@ namespace StarterAssets
 			jump = newJumpState;
 		}
 
+		private void PauseInput(bool isPressed)
+		{
+			if (GameManager.Instance.getGameState()!= GameState.GAMEPAUSED )
+			{
+				GameManager.Instance.ChangeState(GameState.GAMEPAUSED);
+				Cursor.lockState = CursorLockMode.None;
+			}
+			else
+			{
+				GameManager.Instance.ChangeState(GameState.GAMERESUME);
+				Cursor.lockState = CursorLockMode.Locked;
+			}
+		}
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
-		}
-		
-		private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
-		}
-
-		private void SetCursorState(bool newState)
-		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
 	

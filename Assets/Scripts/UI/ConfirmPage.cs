@@ -21,7 +21,6 @@ namespace UWAK.UI
         }
         public void Confirm(ConfirmType type)
         {
-            CanvasManager canvasManager = GetComponentInParent<CanvasManager>();
             switch (type)
             {
                 case ConfirmType.NEWGAMETYPE:
@@ -29,7 +28,7 @@ namespace UWAK.UI
                 case ConfirmType.EXITTYPE:
                     descriptionText.text = "Are you sure want to exit?";
                     yesBTN.onClick.AddListener(() => Application.Quit());
-                    noBTN.onClick.AddListener(() => canvasManager.SetPage(PageName.MENUPAGE));
+                    noBTN.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.MENUPAGE));
                     break;
                 default:
                     break;

@@ -7,5 +7,6 @@ public enum PageName
     MENUPAGE,
     SETTINGPAGE,
     CREDITPAGE,
-    CONFIRMPAGE
+    CONFIRMPAGE,
+    PAUSEDPAGE
 }
