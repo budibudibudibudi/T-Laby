@@ -7,8 +7,15 @@ namespace UWAK.GAME
 {
     public class GameSetting : MonoBehaviour
     {
-        [SerializeField] bool isPaused = false;
-        // Start is called before the first frame update
+        //private bool isGameOver;
+        //public bool GetIsGameOver() { return isGameOver; }
+
+        public static GameSetting Instance;
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+        }
         void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
