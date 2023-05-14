@@ -122,7 +122,7 @@ namespace UWAK.GAME
 			if (_input.crouch)
 			{
 				transform.localScale = new Vector3(0.5f, 0.5f, 1);
-				MoveSpeed = 2;
+				MoveSpeed = CrouchSpeed;
 				SprintSpeed = 4;
 				JumpHeight = 3;
 			}
