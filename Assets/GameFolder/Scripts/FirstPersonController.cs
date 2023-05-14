@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -12,15 +13,12 @@ namespace UWAK.GAME
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
-		[Header("Player")]
-		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 4.0f;
-		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 6.0f;
-		[Tooltip("Rotation speed of the character")]
-		public float RotationSpeed = 1.0f;
-		[Tooltip("Acceleration and deceleration")]
-		public float SpeedChangeRate = 10.0f;
+		[SerializeField] private float MoveSpeed = 4.0f;
+		[SerializeField] private float SprintSpeed = 6.0f;
+		[SerializeField] private float CrouchSpeed = 2.0f;
+		[SerializeField] private float RotationSpeed = 1.0f;
+		[SerializeField] private float SpeedChangeRate = 10.0f;
+		[SerializeField] private float currentSpeed;
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -116,9 +114,28 @@ namespace UWAK.GAME
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Crouching();
 		}
 
-		private void LateUpdate()
+        private void Crouching()
+		{
+			if (_input.crouch)
+			{
+				transform.localScale = new Vector3(0.5f, 0.5f, 1);
+				MoveSpeed = 2;
+				SprintSpeed = 4;
+				JumpHeight = 3;
+			}
+			else
+			{
+				transform.localScale = Vector3.one;
+				MoveSpeed = 4;
+				SprintSpeed = 6;
+				JumpHeight = 1.2f;
+			}
+		}
+
+        private void LateUpdate()
 		{
 			CameraRotation();
 		}
@@ -154,14 +171,13 @@ namespace UWAK.GAME
 
 		private void Move()
 		{
-			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			currentSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is no input, set the target speed to 0
-			if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+			if (_input.move == Vector2.zero) currentSpeed = 0.0f;
 
 			// a reference to the players current horizontal velocity
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -170,18 +186,18 @@ namespace UWAK.GAME
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
 			// accelerate or decelerate to target speed
-			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+			if (currentHorizontalSpeed < currentSpeed - speedOffset || currentHorizontalSpeed > currentSpeed + speedOffset)
 			{
 				// creates curved result rather than a linear one giving a more organic speed change
 				// note T in Lerp is clamped, so we don't need to clamp our speed
-				_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+				_speed = Mathf.Lerp(currentHorizontalSpeed, currentSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
 
 				// round speed to 3 decimal places
 				_speed = Mathf.Round(_speed * 1000f) / 1000f;
 			}
 			else
 			{
-				_speed = targetSpeed;
+				_speed = currentSpeed;
 			}
 
 			// normalise input direction
