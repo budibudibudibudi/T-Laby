@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameState getGameState() { return gameState; }
     public delegate void OnGameStateChange(GameState state);
     public OnGameStateChange onGameStateChange;
+    
     private void Awake()
     {
         if (Instance == null)

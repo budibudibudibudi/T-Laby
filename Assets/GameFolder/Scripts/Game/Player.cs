@@ -1,25 +1,20 @@
 using StarterAssets;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UWAK.ITEM;
 
-namespace UWAK.GAME
+namespace UWAK.GAME.PLAYER
 {
     public class Player : MonoBehaviour
     {
         [SerializeField] GameObject Camera;
         [SerializeField] GameObject interactUI;
-        [SerializeField] TMPro.TMP_Text capsuleHealthText;
-
+        [SerializeField] private float distance;
         private StarterAssetsInputs _input;
 
         DepthOfField depthOfField;
 
-        [SerializeField] private int capsuleHealth = 3;
         private void Start()
         {
             Volume volumeCamera = Camera.GetComponent<Volume>();
@@ -59,7 +54,7 @@ namespace UWAK.GAME
         private void Update()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2f))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance))
             {
                 if (hit.collider.tag == "Pintu")
                 {
@@ -87,16 +82,10 @@ namespace UWAK.GAME
 
             if(_input.useItem)
             {
-                UseHeal(-1);
-                _input.useItem = false;
+                Character.Instance.UseHeal(1);
             }
         }
 
-        private void UseHeal(int amount)
-        {
-            Mathf.Clamp(capsuleHealth + amount, 0, 3);
-
-        }
     }
 
 }

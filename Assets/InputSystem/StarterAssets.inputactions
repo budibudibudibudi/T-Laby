@@ -292,7 +292,7 @@
                     "name": "",
                     "id": "f48c9e61-d9e9-4d92-ab8c-09deee61ba41",
                     "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "UseItem",

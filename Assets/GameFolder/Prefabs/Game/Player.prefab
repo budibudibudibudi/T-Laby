@@ -326,6 +326,36 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8913225355486794006}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &33864365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875595109282199362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27363a74bb79769479d755bffb8e065c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleHealthText: {fileID: 4558525784517536838}
+  healthBar: {fileID: 6404009988896920052}
+  staminaBar: {fileID: 6190097917523871824}
+--- !u!114 &33864366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875595109282199362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce3d86a2af9e784bbab98baff7640a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleHealth: 3
+  health: 100
+  stamina: 20
 --- !u!114 &1049938849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +370,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 5569269450843573824}
   interactUI: {fileID: 5451879434345603005}
+--- !u!114 &4558525784517536838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4967752070282870096, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 8913225355486794006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4814530696898956830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4135013735270702856, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
@@ -352,3 +394,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8913225355486794006}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6190097917523871824 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3338722578350922054, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 8913225355486794006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6404009988896920052 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2552905587541836002, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 8913225355486794006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

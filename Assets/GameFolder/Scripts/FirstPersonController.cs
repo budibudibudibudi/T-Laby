@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 #endif
 using StarterAssets;
 
-namespace UWAK.GAME
+namespace UWAK.GAME.PLAYER
 {
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -171,8 +171,31 @@ namespace UWAK.GAME
 
 		private void Move()
 		{
-			currentSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			if(_input.sprint)
+            {
+				if(Character.Instance.GetStamina() > 0)
+                {
+					currentSpeed = SprintSpeed;
+					Character.Instance.StaminaChange(-1 * Time.deltaTime);
+				}
+                else
+                {
+					_input.sprint = false;
+					currentSpeed = MoveSpeed;
+					Character.Instance.StaminaChange(1 * Time.deltaTime);
+				}
+            }
+            else
+            {
+				currentSpeed = MoveSpeed;
+                if (Character.Instance.GetStamina() < 20)
+                {
+					Character.Instance.StaminaChange(1 * Time.deltaTime);
+				}
 
+            }
+			//currentSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
