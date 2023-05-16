@@ -6,23 +6,9 @@ namespace UWAK.ITEM
 {
     public class Door : Item
     {
-        [SerializeField] private bool state;
+        private bool state;
         public bool GetDoorState() { return state; }
-        public IEnumerator SetDoorState(bool isOpen) { 
-            state = isOpen; 
-            if(state)
-            {
-                anim.Play("Opening 1");
-                yield return new WaitForSeconds(5);
-                anim.Play("Closing 1");
-            }
-            else
-            {
-                anim.Play("Closing 1");
-            }
-        }
-
-        [SerializeField] Collider col;
+        Collider col;
         Animator anim;
         void Start()
         {

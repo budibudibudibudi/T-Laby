@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UWAK.SCRIPTABLE;
 
 namespace UWAK.GAME.PLAYER
 {
@@ -11,7 +12,7 @@ namespace UWAK.GAME.PLAYER
         [SerializeField] private int capsuleHealth = 3;
         public int GetCapsuleHealth() { return capsuleHealth; }
         public delegate void OnCapsuleHealthChange(int amount);
-        public OnCapsuleHealthChange onCapsuleHealthChange;
+        public OnCapsuleHealthChange onHealUsed;
 
         [SerializeField] private int health = 100;
         public int GetHealth() { return health; }
@@ -22,33 +23,46 @@ namespace UWAK.GAME.PLAYER
         public float GetStamina() { return stamina; }
         public delegate void OnStaminaChange(float amount);
         public OnStaminaChange onStaminaChange;
-       // public void SetStamina(float amount) { Mathf.Clamp(stamina += amount,0,20); }
-        
+
+        [SerializeField] ItemSlotClass[] currentItems = new ItemSlotClass[4];
+        public delegate void OnInventoryChange(ItemSlotClass[] items);
+        public OnInventoryChange onInventoryChange;
+
+        [SerializeField] private int inventoryIndex;
+        public delegate void OnInventoryIndexChange(int index);
+        public OnInventoryIndexChange onInventoryIndexChange;
+
         public void UseHeal(int amount)
         {
             if (health < 100)
+            {
                 capsuleHealth -= amount;
+                onHealUsed?.Invoke(capsuleHealth);
+            }
             else
                 return;
-            HealthChange(40);
-            onCapsuleHealthChange?.Invoke(capsuleHealth);
         }
 
         public void HealthChange(int amount)
         {
             Mathf.Clamp(health += amount,0,100);
             onHealthChange?.Invoke(health);
-            if(health >0)
-            {
-                GameManager.Instance.ChangeState(GameState.LOSE);
-            }
         }
         public void StaminaChange(float amount)
         {
             Mathf.Clamp(stamina += amount, 0, 20);
             onStaminaChange?.Invoke(stamina);
         }
-
+        public void InventoryUpdate(ItemSlotClass[] items)
+        {
+            currentItems = items;
+            onInventoryChange?.Invoke(currentItems);
+        }
+        public void SetInventoryIndex(int index)
+        {
+            inventoryIndex = index;
+            onInventoryIndexChange?.Invoke(inventoryIndex);
+        }
         #region singleton
         public static Character Instance;
         private void Awake()
@@ -60,8 +74,6 @@ namespace UWAK.GAME.PLAYER
         }
 
         #endregion
-        private void Start()
-        {
-        }
+
     }
 }

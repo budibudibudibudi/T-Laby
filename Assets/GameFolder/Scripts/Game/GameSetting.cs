@@ -2,20 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UWAK.GAME.PLAYER;
 
 namespace UWAK.GAME
 {
     public class GameSetting : MonoBehaviour
     {
-        //private bool isGameOver;
-        //public bool GetIsGameOver() { return isGameOver; }
+        [SerializeField] Player player;
+        [SerializeField] Enemy enemy;
 
+        #region Singleton
         public static GameSetting Instance;
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
         }
+        #endregion
         void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -24,6 +27,7 @@ namespace UWAK.GAME
         {
             GameManager.Instance.onGameStateChange += OnGameStateChange;
         }
+
         private void OnDisable()
         {
             GameManager.Instance.onGameStateChange -= OnGameStateChange;
@@ -39,10 +43,18 @@ namespace UWAK.GAME
                 case GameState.GAMERESUME:
                     Time.timeScale = 1;
                     break;
+                case GameState.WIN:
+                    //audio
+                    break;
+                case GameState.LOSE:
+                    player.Death();
+                    //audio
+                    break;
                 default:
                     break;
             }
         }
+
 
     }
 }

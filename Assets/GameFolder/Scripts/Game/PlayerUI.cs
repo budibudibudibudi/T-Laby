@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UWAK.SCRIPTABLE;
+
 namespace UWAK.GAME.PLAYER
 {
     public class PlayerUI : MonoBehaviour
@@ -21,17 +23,21 @@ namespace UWAK.GAME.PLAYER
         #endregion
         private void OnEnable()
         {
-            Character.Instance.onCapsuleHealthChange += onCapsuleHealthChange;
+            Character.Instance.onHealUsed += onCapsuleHealthChange;
             Character.Instance.onHealthChange += onHealthChange;
             Character.Instance.onStaminaChange += onStaminaChange;
+            Character.Instance.onInventoryIndexChange += onInventoryIndexChange;
+            Character.Instance.onInventoryChange += onInventoryChange;
         }
 
 
         private void OnDisable()
         {
-            Character.Instance.onCapsuleHealthChange -= onCapsuleHealthChange;
+            Character.Instance.onHealUsed -= onCapsuleHealthChange;
             Character.Instance.onHealthChange -= onHealthChange;
             Character.Instance.onStaminaChange -= onStaminaChange;
+            Character.Instance.onInventoryIndexChange -= onInventoryIndexChange;
+            Character.Instance.onInventoryChange -= onInventoryChange;
         }
         private void Start()
         {
@@ -54,6 +60,15 @@ namespace UWAK.GAME.PLAYER
         private void onStaminaChange(float amount)
         {
             staminaBar.value = amount;
+        }
+        private void onInventoryChange(ItemSlotClass[] items)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void onInventoryIndexChange(int index)
+        {
+            throw new NotImplementedException();
         }
 
     }
