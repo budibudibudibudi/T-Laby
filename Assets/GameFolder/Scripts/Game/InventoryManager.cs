@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UWAK.SCRIPTABLE;
 using UWAK.ITEM;
+using System;
+using UWAK.UI;
 
 namespace UWAK.GAME.PLAYER
 {
     public class InventoryManager : MonoBehaviour
     {
-        [SerializeField] ItemSlotClass[] currentItems = new ItemSlotClass[4];
+        [SerializeField] ItemSlotClass[] currentItems;
+        [SerializeField] GameObject itemParent;
 
         #region SINGLETON
         public static InventoryManager Instance;
@@ -17,13 +20,68 @@ namespace UWAK.GAME.PLAYER
             Instance = this;
         }
         #endregion
+        private void OnEnable()
+        {
+            Character.Instance.onInventoryIndexChange += OnInventoryIndexChange;
+        }
+
+        private void OnDisable()
+        {
+            Character.Instance.onInventoryIndexChange -= OnInventoryIndexChange;
+        }
 
         private void Start()
         {
+            currentItems = new ItemSlotClass[6];
             for (int i = 0; i < currentItems.Length; i++)
             {
                 currentItems[i] = new ItemSlotClass();
             }
+        }
+
+        private void OnInventoryIndexChange(int index)
+        {
+            if(GameManager.Instance.GetGameState() == GameState.OPENINVENTORY)
+            {
+                if (currentItems[index].GetItem() != null)
+                {
+                    if (currentItems[index].GetItem().isInventoryItem)
+                    {
+                        switch (currentItems[index].GetItem().itemName)
+                        {
+                            case NamaItem.KUNCI:
+                                Character.Instance.ItemOnHandChange(currentItems[index].GetItem());
+                                currentItems[index].GetItem().Use();
+                                GameManager.Instance.ChangeState(GameState.GAMERESUME);
+                                break;
+                            case NamaItem.KOPI:
+                                currentItems[index].GetItem().Use();
+                                SubItem(currentItems[index].GetItem(), 1);
+                                break;
+                            case NamaItem.NASIBUNGKUS:
+                                currentItems[index].GetItem().Use();
+                                SubItem(currentItems[index].GetItem(), 1);
+                                break;
+                            case NamaItem.ESTEH:
+                                currentItems[index].GetItem().Use();
+                                SubItem(currentItems[index].GetItem(), 1);
+                                break;
+                            case NamaItem.BATERAI:
+                                currentItems[index].GetItem().Use();
+                                SubItem(currentItems[index].GetItem(), 1);
+                                break;
+                            case NamaItem.SENTER:
+                                Character.Instance.ItemOnHandChange(currentItems[index].GetItem());
+                                GameManager.Instance.ChangeState(GameState.GAMERESUME);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+            }
+            Character.Instance.InventoryUpdate(currentItems);
         }
 
         public void AddItem(Item item,int amount)
@@ -33,23 +91,27 @@ namespace UWAK.GAME.PLAYER
             {
                 if(temp.GetItem().isInventoryItem)
                 {
-                    if(temp.GetItem().isStackAble)
+                    for (int i = 0; i < currentItems.Length; i++)
                     {
-                        for (int i = 0; i < currentItems.Length; i++)
+                        if(currentItems[i].GetItem() == null)
                         {
                             currentItems[i].AddItem(item, amount);
+                            currentItems[i].GetItem().transform.SetParent(itemParent.transform);
+                            break;
                         }
                     }
                 }
             }
             else
             {
-                if(temp.GetItem().isInventoryItem)
+                for (int i = 0; i < currentItems.Length; i++)
                 {
-                    for (int i = 0; i < currentItems.Length; i++)
+                    if (currentItems[i].GetItem() == null)
                     {
                         currentItems[i].AddItem(item, amount);
-                    }
+                        currentItems[i].GetItem().transform.SetParent(itemParent.transform);
+                        break;
+                    }    
                 }
             }
             Character.Instance.InventoryUpdate(currentItems);

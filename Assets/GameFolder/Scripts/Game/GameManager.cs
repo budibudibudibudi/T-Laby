@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] GameState gameState;
-    public GameState getGameState() { return gameState; }
+    public GameState GetGameState() { return gameState; }
     public delegate void OnGameStateChange(GameState state);
     public OnGameStateChange onGameStateChange;
     

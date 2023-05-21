@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UWAK.AUDIO;
+using UWAK.GAME.PLAYER;
 
 namespace UWAK.ITEM
 {
     public class Item : MonoBehaviour
     {
         public NamaItem itemName;
-        public bool isStackAble;
+        public bool rareItem;
         public bool isInventoryItem;
+        public Sprite Icon;
+        public bool State;
         
         protected AudioSource source;
         [SerializeField] protected AudioClip sfx;
@@ -23,20 +26,27 @@ namespace UWAK.ITEM
         }
         public virtual void Use()
         {
-            source.PlayOneShot(sfx);
-            Debug.Log("used");
+            source?.PlayOneShot(sfx);
         }
         public virtual void Use(bool value)
         {
-            source.PlayOneShot(sfx);
-            Debug.Log("Used");
+            source?.PlayOneShot(sfx);
+            State = value;
+        }
+        public virtual void AddToInventory()
+        {
+            source?.PlayOneShot(sfx);
+            InventoryManager.Instance.AddItem(this, 1);
         }
     }
     public enum NamaItem
     {
-        CAPSULE,
         KUNCI,
-        KEJU,
-        PINTU
+        PINTU,
+        KOPI,
+        NASIBUNGKUS,
+        ESTEH,
+        BATERAI,
+        SENTER
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] EnemyState State;
     void Start()
     {
         
@@ -15,4 +15,10 @@ public class Enemy : MonoBehaviour
     {
         
     }
+}
+public enum EnemyState
+{
+    PATROL,
+    STUNT,
+    ATTACK
 }

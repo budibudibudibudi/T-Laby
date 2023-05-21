@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UWAK.ITEM;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -58,6 +59,7 @@ namespace UWAK.GAME.PLAYER
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+		[SerializeField] private float distanceRaycast;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -70,6 +72,7 @@ namespace UWAK.GAME.PLAYER
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
+		[SerializeField] GameObject interactUI;
 
 		private const float _threshold = 0.01f;
 
@@ -115,6 +118,49 @@ namespace UWAK.GAME.PLAYER
 			GroundedCheck();
 			Move();
 			Crouching();
+
+			RaycastHit hit;
+			if (!Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.TransformDirection(Vector3.forward), out hit, distanceRaycast))
+			{
+				interactUI.SetActive(false);
+			}
+			else
+			{
+				if (hit.collider.tag == "Pintu")
+				{
+					interactUI.SetActive(true);
+					if (_input.interact)
+					{
+						Door pintu = hit.collider.gameObject.GetComponent<Door>();
+						if (!pintu.GetDoorState())
+						{
+							//StartCoroutine(pintu.SetDoorState(true));
+							pintu.Use(true);
+						}
+						else
+						{
+							//StartCoroutine(pintu.SetDoorState(false));
+							pintu.Use(false);
+						}
+					}
+				}
+				else if (hit.collider.tag == "InventoryItem")
+				{
+					interactUI.SetActive(true);
+					if (_input.interact)
+					{
+						Item item = hit.collider.gameObject.GetComponent<Item>();
+						if (item != null)
+						{
+							item.AddToInventory();
+						}
+					}
+				}
+				else
+				{
+					interactUI.SetActive(false);
+				}
+			}
 		}
 
         private void Crouching()
@@ -188,7 +234,7 @@ namespace UWAK.GAME.PLAYER
             else
             {
 				currentSpeed = MoveSpeed;
-                if (Character.Instance.GetStamina() < 20)
+                if (Character.Instance.GetStamina() < Character.Instance.GetMaxStamina())
                 {
 					Character.Instance.StaminaChange(1 * Time.deltaTime);
 				}

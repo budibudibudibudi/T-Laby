@@ -10,5 +10,6 @@ public enum PageName
     CONFIRMPAGE,
     PAUSEDPAGE,
     GAMEOVERPAGE,
-    WINPAGE
+    WINPAGE,
+    INVENTORYPAGE
 }

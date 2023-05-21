@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UWAK.SCRIPTABLE;
+using UWAK.UI;
 
 namespace UWAK.GAME.PLAYER
 {
-    public class PlayerUI : MonoBehaviour
+    public class PlayerUI : CanvasManager
     {
-        [SerializeField] TMPro.TMP_Text capsuleHealthText;
         [SerializeField] Slider healthBar;
         [SerializeField] Slider staminaBar;
+        [SerializeField] GameObject InventUI;
+
+
         //public void SetStaminaBar(float amount) { staminaBar.value = amount; }
 
         #region SINGLETON
@@ -21,31 +25,45 @@ namespace UWAK.GAME.PLAYER
             Instance = this;
         }
         #endregion
+        #region subscription
         private void OnEnable()
         {
-            Character.Instance.onHealUsed += onCapsuleHealthChange;
             Character.Instance.onHealthChange += onHealthChange;
             Character.Instance.onStaminaChange += onStaminaChange;
-            Character.Instance.onInventoryIndexChange += onInventoryIndexChange;
-            Character.Instance.onInventoryChange += onInventoryChange;
+            GameManager.Instance.onGameStateChange += OnGameStateChange;
+            Character.Instance.onMaxStaminaChange += OnMaxStaminaChange;
         }
-
 
         private void OnDisable()
         {
-            Character.Instance.onHealUsed -= onCapsuleHealthChange;
             Character.Instance.onHealthChange -= onHealthChange;
             Character.Instance.onStaminaChange -= onStaminaChange;
-            Character.Instance.onInventoryIndexChange -= onInventoryIndexChange;
-            Character.Instance.onInventoryChange -= onInventoryChange;
+            GameManager.Instance.onGameStateChange -= OnGameStateChange;
+            Character.Instance.onMaxStaminaChange -= OnMaxStaminaChange;
         }
+        #endregion
+        private void OnGameStateChange(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.OPENINVENTORY:
+                    InventUI.SetActive(true);
+                    break;
+                case GameState.GAMERESUME:
+                    InventUI.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void Start()
         {
-            healthBar.maxValue = Character.Instance.GetHealth();
+            healthBar.maxValue = Character.Instance.GetMaxHealth();
             healthBar.value = Character.Instance.GetHealth();
-            capsuleHealthText.text = $"Capsule : {Character.Instance.GetCapsuleHealth()}";
             staminaBar.maxValue = Character.Instance.GetStamina();
             staminaBar.value = Character.Instance.GetStamina();
+
         }
 
         private void onHealthChange(int health)
@@ -53,23 +71,14 @@ namespace UWAK.GAME.PLAYER
             healthBar.value = health;
         }
 
-        private void onCapsuleHealthChange(int amount)
-        {
-            capsuleHealthText.text = $"Capsule : {amount}";
-        }
         private void onStaminaChange(float amount)
         {
             staminaBar.value = amount;
         }
-        private void onInventoryChange(ItemSlotClass[] items)
-        {
-            throw new NotImplementedException();
-        }
 
-        private void onInventoryIndexChange(int index)
+        private void OnMaxStaminaChange(float amount)
         {
-            throw new NotImplementedException();
+            staminaBar.maxValue = amount;
         }
-
     }
 }

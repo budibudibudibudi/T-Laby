@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UWAK.GAME.PLAYER;
 #endif
 
 namespace StarterAssets
@@ -16,6 +17,10 @@ namespace StarterAssets
 		public bool crouch;
 		public bool interact;
 		public bool useItem;
+		public bool satu;
+		public bool dua;
+		public bool tiga;
+		public bool empat;
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
@@ -31,7 +36,7 @@ namespace StarterAssets
 
 		public void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if (cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
@@ -47,27 +52,62 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 		public void OnPause(InputValue value)
-        {
+		{
 			PauseInput(value.isPressed);
-        }
+		}
 		public void OnCrouch(InputValue value)
-        {
+		{
 			CrouchInput(value.isPressed);
-        }
+		}
 		public void OnInteract(InputValue value)
-        {
+		{
 			InteractInput(value.isPressed);
-        }
+		}
 		public void OnUseItem(InputValue value)
-        {
+		{
 			UseItemInput(value.isPressed);
-        }
+		}
+		public void OnInvenIndex1(InputValue value)
+		{
+			Character.Instance.SetInventoryIndex(0);
+		}
+		public void OnInvenIndex2(InputValue value)
+		{
+			Character.Instance.SetInventoryIndex(1);
+		}
+		public void OnInvenIndex3(InputValue value)
+		{
+			Character.Instance.SetInventoryIndex(2);
+		}
+		public void OnInvenIndex4(InputValue value)
+		{
+			Character.Instance.SetInventoryIndex(3);
+		}
+		public void OnOpenInventory(InputValue value)
+		{
+			OpenInventory(value.isPressed);
+		}
 
 #endif
 		private void UseItemInput(bool isPressed)
 		{
-			useItem = isPressed;
-		}
+			for (int i = 0; i < Player.Instance.GetItemInHand().Length; i++)
+			{
+				if (Player.Instance.GetItemInHand()[i].gameObject.activeInHierarchy)
+                {
+					if (!Player.Instance.GetItemInHand()[i].State)
+                    {
+						Player.Instance.GetItemInHand()[i].State = true;
+						Player.Instance.GetItemInHand()[i].Use(Player.Instance.GetItemInHand()[i].State);
+                    }
+                    else
+                    {
+						Player.Instance.GetItemInHand()[i].State = false;
+						Player.Instance.GetItemInHand()[i].Use(Player.Instance.GetItemInHand()[i].State);
+					}
+                }
+            }
+        }
 
 		private void InteractInput(bool isPressed)
 		{
@@ -81,7 +121,7 @@ namespace StarterAssets
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
-		} 
+		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
@@ -93,18 +133,28 @@ namespace StarterAssets
 			jump = newJumpState;
 		}
 
-		private void PauseInput(bool isPressed)
+		private void OpenInventory(bool isPressed)
 		{
-			if (GameManager.Instance.getGameState()!= GameState.GAMEPAUSED )
+			if (GameManager.Instance.GetGameState() != GameState.OPENINVENTORY)
 			{
-				GameManager.Instance.ChangeState(GameState.GAMEPAUSED);
-				Cursor.lockState = CursorLockMode.None;
+				GameManager.Instance.ChangeState(GameState.OPENINVENTORY);
 			}
 			else
 			{
 				GameManager.Instance.ChangeState(GameState.GAMERESUME);
-				Cursor.lockState = CursorLockMode.Locked;
 			}
+		}
+
+		private void PauseInput(bool isPressed)
+		{
+			if (GameManager.Instance.GetGameState() == GameState.GAMERESUME || GameManager.Instance.GetGameState() == GameState.GAME)
+			{
+				GameManager.Instance.ChangeState(GameState.GAMEPAUSED);
+			}
+			else if (GameManager.Instance.GetGameState() == GameState.OPENINVENTORY || GameManager.Instance.GetGameState()==GameState.GAMEPAUSED)
+            {
+				GameManager.Instance.ChangeState(GameState.GAMERESUME);
+            }
 		}
 		public void SprintInput(bool newSprintState)
 		{

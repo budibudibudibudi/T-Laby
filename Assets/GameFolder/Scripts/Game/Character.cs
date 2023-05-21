@@ -3,46 +3,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UWAK.ITEM;
 using UWAK.SCRIPTABLE;
 
 namespace UWAK.GAME.PLAYER
 {
     public class Character : MonoBehaviour
     {
-        [SerializeField] private int capsuleHealth = 3;
-        public int GetCapsuleHealth() { return capsuleHealth; }
-        public delegate void OnCapsuleHealthChange(int amount);
-        public OnCapsuleHealthChange onHealUsed;
-
         [SerializeField] private int health = 100;
         public int GetHealth() { return health; }
         public delegate void OnHealthChange(int health);
         public OnHealthChange onHealthChange;
 
-        [SerializeField] private float stamina = 20;
+        [SerializeField] private int maxHealth = 100;
+        public int GetMaxHealth() { return maxHealth; }
+
+        [SerializeField] private float stamina;
         public float GetStamina() { return stamina; }
         public delegate void OnStaminaChange(float amount);
         public OnStaminaChange onStaminaChange;
 
-        [SerializeField] ItemSlotClass[] currentItems = new ItemSlotClass[4];
+        [SerializeField] private float maxStamina = 20;
+        public float GetMaxStamina() { return maxStamina; }
+        public delegate void OnMaxStaminaChange(float amount);
+        public OnMaxStaminaChange onMaxStaminaChange;
+
+        [SerializeField] ItemSlotClass[] currentItems;
         public delegate void OnInventoryChange(ItemSlotClass[] items);
         public OnInventoryChange onInventoryChange;
 
-        [SerializeField] private int inventoryIndex;
+        [SerializeField] private int useItemIndex;
         public delegate void OnInventoryIndexChange(int index);
         public OnInventoryIndexChange onInventoryIndexChange;
 
-        public void UseHeal(int amount)
+        [SerializeField] Item itemHand;
+        public Item GetItemHand() { return itemHand; }
+        public delegate void OnHandChange(Item item);
+        public OnHandChange onHandChange;
+        private void Start()
         {
-            if (health < 100)
-            {
-                capsuleHealth -= amount;
-                onHealUsed?.Invoke(capsuleHealth);
-            }
-            else
-                return;
+            currentItems = new ItemSlotClass[6];
         }
-
+        public void AddMaxStamina(float amount)
+        {
+            maxStamina += amount;
+            onMaxStaminaChange?.Invoke(maxStamina);
+        }
+        public void ItemOnHandChange(Item? item)
+        {
+            itemHand = item;
+            onHandChange?.Invoke(itemHand);
+        }
         public void HealthChange(int amount)
         {
             Mathf.Clamp(health += amount,0,100);
@@ -50,7 +61,7 @@ namespace UWAK.GAME.PLAYER
         }
         public void StaminaChange(float amount)
         {
-            Mathf.Clamp(stamina += amount, 0, 20);
+            Mathf.Clamp(stamina += amount, 0, maxStamina);
             onStaminaChange?.Invoke(stamina);
         }
         public void InventoryUpdate(ItemSlotClass[] items)
@@ -60,8 +71,8 @@ namespace UWAK.GAME.PLAYER
         }
         public void SetInventoryIndex(int index)
         {
-            inventoryIndex = index;
-            onInventoryIndexChange?.Invoke(inventoryIndex);
+            useItemIndex = index;
+            onInventoryIndexChange?.Invoke(useItemIndex);
         }
         #region singleton
         public static Character Instance;
@@ -74,6 +85,5 @@ namespace UWAK.GAME.PLAYER
         }
 
         #endregion
-
     }
 }

@@ -4,43 +4,61 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UWAK.ITEM;
+using UWAK.SCRIPTABLE;
 
 namespace UWAK.GAME.PLAYER
 {
     public class Player : MonoBehaviour
     {
         [SerializeField] GameObject Camera;
-        [SerializeField] GameObject interactUI;
-
-        [SerializeField] private float distance;
-
-        private StarterAssetsInputs _input;
+        [SerializeField] GameObject itemParent;
+        [SerializeField] GameObject Hand;
+        [SerializeField] Item[] itemInHand;
+        public Item[] GetItemInHand() { return itemInHand; }
 
         DepthOfField depthOfField;
 
         private int curentHealth;
+
+        #region SINGLETON
+        public static Player Instance;
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+        }
+        #endregion
         private void Start()
         {
             Volume volumeCamera = Camera.GetComponent<Volume>();
-            _input = GetComponent<StarterAssetsInputs>();
+
             curentHealth = Character.Instance.GetHealth();
 
             volumeCamera.profile.TryGet(out depthOfField);
             depthOfField.mode.overrideState = true;
             depthOfField.mode.value = DepthOfFieldMode.Bokeh;
             depthOfField.focusDistance.value = 10f;
+
+            itemInHand = new Item[Hand.transform.childCount];
+            for (int i = 0; i < itemInHand.Length; i++)
+            {
+                itemInHand[i] = Hand.transform.GetChild(i).GetComponent<Item>();
+            }
         }
         private void OnEnable()
         {
             GameManager.Instance.onGameStateChange +=OnGameStateChange;
-            Character.Instance.onHealUsed += OnHealUsed;
             Character.Instance.onHealthChange += OnHealthChange;
+            Character.Instance.onHandChange += OnHandChange;
         }
+
         private void OnDisable()
         {
             GameManager.Instance.onGameStateChange -= OnGameStateChange;
-            Character.Instance.onHealUsed -= OnHealUsed;
             Character.Instance.onHealthChange -= OnHealthChange;
+            Character.Instance.onHandChange -= OnHandChange;
         }
 
         private void OnGameStateChange(GameState state)
@@ -53,55 +71,35 @@ namespace UWAK.GAME.PLAYER
                     break;
                 case GameState.GAMEPAUSED:
                     depthOfField.focusDistance.value = 0.1f;
+                    Cursor.lockState = CursorLockMode.None;
                     break;
                 case GameState.GAMERESUME:
                     depthOfField.focusDistance.value = 10f;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    break;
+                case GameState.OPENINVENTORY:
+                    depthOfField.focusDistance.value = 0.1f;
+                    Cursor.lockState = CursorLockMode.None;
                     break;
                 default:
                     break;
             }
         }
-        private void Update()
-        {
-            RaycastHit hit;
-            if (!Physics.Raycast(Camera.transform.position, Camera.transform.TransformDirection(Vector3.forward), out hit, distance))
-            {
-                interactUI.SetActive(false);
-            }
-            else
-            {
-                Debug.DrawLine(Camera.transform.position, hit.point, Color.green);
-                if (hit.collider.tag == "Pintu")
-                {
-                    interactUI.SetActive(true);
-                    if (_input.interact)
-                    {
-                        Door pintu = hit.collider.gameObject.GetComponent<Door>();
-                        if (!pintu.GetDoorState())
-                        {
-                            //StartCoroutine(pintu.SetDoorState(true));
-                            pintu.Use(true);
-                        }
-                        else
-                        {
-                            //StartCoroutine(pintu.SetDoorState(false));
-                            pintu.Use(false);
-                        }
-                    }
-                }
-                else
-                {
-                    interactUI.SetActive(false);
-                }
-            }
 
-            if (_input.useItem)
+        private void OnHandChange(Item _itemInHand)
+        {
+            foreach (var items in itemInHand)
             {
-                Character.Instance.UseHeal(1);
-                _input.useItem = false;
+                items.gameObject.SetActive(false);
+            }
+            for (int i = 0; i < itemInHand.Length; i++)
+            {
+                if(itemInHand[i].itemName == _itemInHand.itemName)
+                {
+                    itemInHand[i].gameObject.SetActive(true);
+                } 
             }
         }
-
         private void OnHealthChange(int health)
         {
             if(health<curentHealth)
@@ -118,7 +116,6 @@ namespace UWAK.GAME.PLAYER
                 GameManager.Instance.ChangeState(GameState.LOSE);
             }
         }
-
         private void OnHealUsed(int amount)
         {
             //animasi player pake heal
