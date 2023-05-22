@@ -14,7 +14,6 @@ namespace UWAK.GAME.PLAYER
         [SerializeField] GameObject itemParent;
         [SerializeField] GameObject Hand;
         [SerializeField] Item[] itemInHand;
-        public Item[] GetItemInHand() { return itemInHand; }
 
         DepthOfField depthOfField;
 
@@ -123,6 +122,18 @@ namespace UWAK.GAME.PLAYER
         public void Death()
         {
 
+        }
+
+        public Item GetItemInHand()
+        {
+            for (int i = 0; i < itemInHand.Length; i++)
+            {
+                if(itemInHand[i].gameObject.activeInHierarchy)
+                {
+                    return itemInHand[i];
+                }
+            }
+            return null;
         }
     }
 

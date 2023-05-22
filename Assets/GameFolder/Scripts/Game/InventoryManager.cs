@@ -67,8 +67,12 @@ namespace UWAK.GAME.PLAYER
                                 SubItem(currentItems[index].GetItem(), 1);
                                 break;
                             case NamaItem.BATERAI:
-                                currentItems[index].GetItem().Use();
-                                SubItem(currentItems[index].GetItem(), 1);
+                                Item temp = Player.Instance.GetItemInHand();
+                                if(temp.itemName == NamaItem.SENTER)
+                                {
+                                    currentItems[index].GetItem().Use();
+                                    SubItem(currentItems[index].GetItem(), 1);
+                                }
                                 break;
                             case NamaItem.SENTER:
                                 Character.Instance.ItemOnHandChange(currentItems[index].GetItem());

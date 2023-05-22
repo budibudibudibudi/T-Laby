@@ -3,6 +3,7 @@ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 using UWAK.GAME.PLAYER;
+using UWAK.ITEM;
 #endif
 
 namespace StarterAssets
@@ -91,20 +92,25 @@ namespace StarterAssets
 #endif
 		private void UseItemInput(bool isPressed)
 		{
-			for (int i = 0; i < Player.Instance.GetItemInHand().Length; i++)
-			{
-				if (Player.Instance.GetItemInHand()[i].gameObject.activeInHierarchy)
+			Item temp = Player.Instance.GetItemInHand();
+			if(temp != null)
+            {
+                switch (temp.itemName)
                 {
-					if (!Player.Instance.GetItemInHand()[i].State)
-                    {
-						Player.Instance.GetItemInHand()[i].State = true;
-						Player.Instance.GetItemInHand()[i].Use(Player.Instance.GetItemInHand()[i].State);
-                    }
-                    else
-                    {
-						Player.Instance.GetItemInHand()[i].State = false;
-						Player.Instance.GetItemInHand()[i].Use(Player.Instance.GetItemInHand()[i].State);
-					}
+                    case NamaItem.KUNCI:
+						break;
+                    case NamaItem.SENTER:
+						if (!temp.GetSenter().GetState())
+                        {
+							temp.Use(true);
+                        }
+                        else
+                        {
+							temp.Use(false);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         }

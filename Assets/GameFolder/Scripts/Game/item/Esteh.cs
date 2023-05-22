@@ -9,8 +9,11 @@ namespace UWAK.ITEM
         {
             base.Use();
             Character.Instance.HealthChange(25);
+            Destroy(gameObject);
+        }
+        public override Senter GetSenter()
+        {
+            return null;
         }
     }
-
-
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1921305373378060
+--- !u!1 &6762875839710201613
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4694914108009350}
-  - component: {fileID: 33518946462129110}
-  - component: {fileID: 23783496279073210}
-  - component: {fileID: 743454179}
-  - component: {fileID: 743454180}
+  - component: {fileID: 6761897823050003979}
+  - component: {fileID: 6746912245543119593}
+  - component: {fileID: 6740835097974772971}
+  - component: {fileID: 6762544137058066687}
+  - component: {fileID: 6762544137058066684}
   m_Layer: 0
-  m_Name: Baterry
+  m_Name: Apple
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4694914108009350
+--- !u!4 &6761897823050003979
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921305373378060}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_GameObject: {fileID: 6762875839710201613}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.98, y: 1.239, z: 2.884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &33518946462129110
+--- !u!33 &6746912245543119593
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921305373378060}
-  m_Mesh: {fileID: 4300000, guid: 7bd441cc80169be4e816fb9d5cbf535a, type: 3}
---- !u!23 &23783496279073210
+  m_GameObject: {fileID: 6762875839710201613}
+  m_Mesh: {fileID: 4300000, guid: f4d1fc1989563434685d32fe4b60ff6c, type: 3}
+--- !u!23 &6740835097974772971
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921305373378060}
+  m_GameObject: {fileID: 6762875839710201613}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b2b65021e59a48446baced0c977988a9, type: 2}
+  - {fileID: 2100000, guid: a5b5b5813e9efbd4bad9c4675bc36a23, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,34 +85,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &743454179
+--- !u!65 &6762544137058066687
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921305373378060}
+  m_GameObject: {fileID: 6762875839710201613}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21181943, y: 0.41186765, z: 0.21726686}
-  m_Center: {x: 0.000000029802322, y: 0.012331024, z: -0.000000037252903}
---- !u!114 &743454180
+  m_Size: {x: 0.5736207, y: 0.5498075, z: 0.5736207}
+  m_Center: {x: -0.0000024735928, y: 0.06987905, z: -0.0055559725}
+--- !u!114 &6762544137058066684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921305373378060}
+  m_GameObject: {fileID: 6762875839710201613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd9fc654c5c36f4db1653a46cf1f5fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 59d5a14512d61a84c9853a6585638e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 5
+  itemName: 3
   rareItem: 0
   isInventoryItem: 1
-  Icon: {fileID: 21300000, guid: 8d9854d5b0722ff40a1a464ffcb3a5cb, type: 3}
-  State: 0
+  Icon: {fileID: 21300000, guid: 1c88f440180d73a4cba1593d6b94af19, type: 3}
   sfx: {fileID: 0}

@@ -10,5 +10,9 @@ namespace UWAK.ITEM
         {
             base.Use();
         }
+        public override Senter GetSenter()
+        {
+            return null;
+        }
     }
 }

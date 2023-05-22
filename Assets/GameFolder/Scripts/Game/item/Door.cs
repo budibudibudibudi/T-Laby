@@ -28,6 +28,10 @@ namespace UWAK.ITEM
                 anim.Play("Closing 1");
             }
         }
+        public override Senter GetSenter()
+        {
+            return null;
+        }
         #region Animation Event
         public void ActivateCollider()
         {

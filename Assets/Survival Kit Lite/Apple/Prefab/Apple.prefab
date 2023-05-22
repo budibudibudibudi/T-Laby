@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 4068391342463826}
   - component: {fileID: 33982470939674544}
   - component: {fileID: 23964813619247538}
+  - component: {fileID: 1905823142}
+  - component: {fileID: 1905823141}
   m_Layer: 0
   m_Name: Apple
-  m_TagString: Untagged
+  m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +85,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1905823142
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105760525757012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5736207, y: 0.5498075, z: 0.5736207}
+  m_Center: {x: -0.0000024735928, y: 0.06987905, z: -0.0055559725}
+--- !u!114 &1905823141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105760525757012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d5a14512d61a84c9853a6585638e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 3
+  rareItem: 0
+  isInventoryItem: 1
+  Icon: {fileID: 21300000, guid: 1c88f440180d73a4cba1593d6b94af19, type: 3}
+  sfx: {fileID: 0}

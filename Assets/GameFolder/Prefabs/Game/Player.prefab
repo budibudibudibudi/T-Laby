@@ -53,6 +53,7 @@ MonoBehaviour:
   Camera: {fileID: 5569269450843573824}
   itemParent: {fileID: 8972735812129477036}
   Hand: {fileID: 3776515956535727356}
+  itemInHand: []
 --- !u!114 &189817599227863344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentItems: []
-  itemParent: {fileID: 0}
+  itemParent: {fileID: 8972735812129477036}
 --- !u!114 &3216916821537619403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3d86a2af9e784bbab98baff7640a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   maxHealth: 100
-  stamina: 0
+  stamina: 20
   maxStamina: 20
   currentItems: []
   useItemIndex: 0
@@ -110,6 +111,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3189559022816593471}
     m_Modifications:
+    - target: {fileID: 63222241311440336, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65184309447836555, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: bateraiValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65184309447836555, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: maxBateraiValue
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: m_RootOrder
@@ -320,6 +336,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
+      propertyPath: interactUI
+      value: 
+      objectReference: {fileID: 5451879434345603005}
+    - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
+      propertyPath: distanceRaycast
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: m_Name
@@ -397,6 +423,12 @@ GameObject:
 --- !u!4 &4814530696898956830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4135013735270702856, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 8913225355486794006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5451879434345603005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3466316274800709291, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
     type: 3}
   m_PrefabInstance: {fileID: 8913225355486794006}
   m_PrefabAsset: {fileID: 0}

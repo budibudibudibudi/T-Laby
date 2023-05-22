@@ -13,6 +13,10 @@ namespace UWAK.ITEM
             Character.Instance.HealthChange(50);
             Destroy(gameObject);
         }
+        public override Senter GetSenter()
+        {
+            return null;
+        }
     }
 
 }
