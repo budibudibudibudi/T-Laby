@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BangFajiJagoUnity",
+                    "type": "Button",
+                    "id": "f9fe04b2-fa74-43e3-a622-c223f0b3c7fa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -396,6 +405,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "657904fe-534c-4e51-9b93-7208ea28cc42",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "BangFajiJagoUnity",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
