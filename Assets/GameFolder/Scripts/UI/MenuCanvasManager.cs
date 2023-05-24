@@ -43,7 +43,7 @@ namespace UWAK.UI
                     SetPage(null);
                     break;
                 case GameState.GAME:
-                    if (SceneManager.GetActiveScene().name == "Game")
+                    if (SceneManager.GetActiveScene().name != "Game")
                         ChangeScene("Game");
                     break;
                 case GameState.WIN:

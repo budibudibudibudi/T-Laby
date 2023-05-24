@@ -126,7 +126,7 @@ namespace UWAK.GAME.PLAYER
 			}
 			else
 			{
-				if (hit.collider.tag == "Pintu")
+				if (hit.collider.CompareTag("Pintu"))
 				{
 					interactUI.SetActive(true);
 					if (_input.interact)
@@ -144,7 +144,7 @@ namespace UWAK.GAME.PLAYER
 						}
 					}
 				}
-				else if (hit.collider.tag == "InventoryItem")
+				else if (hit.collider.CompareTag("InventoryItem"))
 				{
 					interactUI.SetActive(true);
 					if (_input.interact)
@@ -189,7 +189,7 @@ namespace UWAK.GAME.PLAYER
 		private void GroundedCheck()
 		{
 			// set sphere position, with offset
-			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
+			Vector3 spherePosition = new(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 		}
 
@@ -341,8 +341,8 @@ namespace UWAK.GAME.PLAYER
 
 		private void OnDrawGizmosSelected()
 		{
-			Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-			Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+			Color transparentGreen = new(0.0f, 1.0f, 0.0f, 0.35f);
+			Color transparentRed = new(1.0f, 0.0f, 0.0f, 0.35f);
 
 			if (Grounded) Gizmos.color = transparentGreen;
 			else Gizmos.color = transparentRed;

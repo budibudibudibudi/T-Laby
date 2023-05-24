@@ -180,12 +180,12 @@ MonoBehaviour:
   Gravity: -15
   JumpTimeout: 0.1
   FallTimeout: 0.15
-  Grounded: 1
+  Grounded: 0
   GroundedOffset: -0.14
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 512
   CinemachineCameraTarget: {fileID: 4814530696898956825}
   TopClamp: 89
   BottomClamp: -89
@@ -248,13 +248,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 65184309447836555, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
+      propertyPath: Light
+      value: 
+      objectReference: {fileID: 5130668324366052650}
+    - target: {fileID: 65184309447836555, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
       propertyPath: bateraiValue
-      value: 10
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 65184309447836555, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: maxBateraiValue
-      value: 20
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 446563677785842548, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_Range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 446563677785842548, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
@@ -304,7 +319,7 @@ PrefabInstance:
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
@@ -331,6 +346,12 @@ PrefabInstance:
 --- !u!1 &3776515956535727356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 421680526421042523, guid: 2d3a85ecde41a8246a79669975912b74,
+    type: 3}
+  m_PrefabInstance: {fileID: 3581203330785784231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5130668324366052650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8539166690645204109, guid: 2d3a85ecde41a8246a79669975912b74,
     type: 3}
   m_PrefabInstance: {fileID: 3581203330785784231}
   m_PrefabAsset: {fileID: 0}
