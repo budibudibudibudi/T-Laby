@@ -91,12 +91,18 @@ namespace UWAK.GAME.PLAYER
             {
                 items.gameObject.SetActive(false);
             }
-            for (int i = 0; i < itemInHand.Length; i++)
+            if (_itemInHand == null)
+                return;
+            else
             {
-                if(itemInHand[i].itemName == _itemInHand.itemName)
+                for (int i = 0; i < itemInHand.Length; i++)
                 {
-                    itemInHand[i].gameObject.SetActive(true);
-                } 
+                    if (itemInHand[i].itemName == _itemInHand.itemName)
+                    {
+                        itemInHand[i].gameObject.SetActive(true);
+                    }
+                }
+
             }
         }
         private void OnHealthChange(int health)
@@ -114,10 +120,6 @@ namespace UWAK.GAME.PLAYER
             {
                 GameManager.Instance.ChangeState(GameState.LOSE);
             }
-        }
-        private void OnHealUsed(int amount)
-        {
-            //animasi player pake heal
         }
         public void Death()
         {

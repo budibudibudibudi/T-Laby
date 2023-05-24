@@ -92,7 +92,7 @@ namespace StarterAssets
 		private void UseItemInput(bool isPressed)
 		{
 			Item temp = Player.Instance.GetItemInHand();
-			if(temp != null)
+			if(temp != null && Character.Instance.GetItemHand() != null)
             {
                 switch (temp.itemName)
                 {
