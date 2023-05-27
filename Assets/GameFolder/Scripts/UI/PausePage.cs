@@ -14,7 +14,11 @@ namespace UWAK.UI
                 Cursor.lockState = CursorLockMode.Locked;
             });
             settingBTN.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.SETTINGPAGE));
-            mainMenuBTN.onClick.AddListener(() => GameManager.Instance.ChangeState(GameState.MENUPAGE));
+            mainMenuBTN.onClick.AddListener(() =>
+            {
+                Time.timeScale = 1;
+                GameManager.Instance.ChangeState(GameState.MENUPAGE);
+            });
         }
 
         // Update is called once per frame
