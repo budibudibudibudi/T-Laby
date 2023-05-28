@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UWAK.UI;
 using UnityEngine.SceneManagement;
 namespace UWAK.UI
 {

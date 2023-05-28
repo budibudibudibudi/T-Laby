@@ -123,7 +123,7 @@ namespace UWAK.GAME.PLAYER
         }
         public void Death()
         {
-
+            //animasi death jg
         }
 
         public Item GetItemInHand()

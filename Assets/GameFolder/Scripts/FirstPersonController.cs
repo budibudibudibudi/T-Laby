@@ -72,7 +72,6 @@ namespace UWAK.GAME.PLAYER
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
-		[SerializeField] GameObject interactUI;
 
 		private const float _threshold = 0.01f;
 
@@ -122,13 +121,11 @@ namespace UWAK.GAME.PLAYER
 			RaycastHit hit;
 			if (!Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.TransformDirection(Vector3.forward), out hit, distanceRaycast))
 			{
-				interactUI.SetActive(false);
 			}
 			else
 			{
 				if (hit.collider.CompareTag("Pintu"))
 				{
-					interactUI.SetActive(true);
 					if (_input.interact)
 					{
 						Door pintu = hit.collider.gameObject.GetComponent<Door>();
@@ -146,7 +143,6 @@ namespace UWAK.GAME.PLAYER
 				}
 				else if (hit.collider.CompareTag("InventoryItem"))
 				{
-					interactUI.SetActive(true);
 					if (_input.interact)
 					{
 						Item item = hit.collider.gameObject.GetComponent<Item>();
@@ -155,10 +151,6 @@ namespace UWAK.GAME.PLAYER
 							item.AddToInventory();
 						}
 					}
-				}
-				else
-				{
-					interactUI.SetActive(false);
 				}
 			}
 		}

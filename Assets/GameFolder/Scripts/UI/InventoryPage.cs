@@ -37,12 +37,10 @@ namespace UWAK.UI
                 try
                 {
                     inventUI[i].GetComponent<Image>().sprite = items[i].GetItem().Icon;
-                    inventUI[i].transform.GetChild(0).GetComponent<TMP_Text>().text = (i+1).ToString();
                 }
                 catch
                 {
                     inventUI[i].GetComponent<Image>().sprite = null;
-                    inventUI[i].transform.GetChild(0).GetComponent<TMP_Text>().text = "";
                 }
             }
         }

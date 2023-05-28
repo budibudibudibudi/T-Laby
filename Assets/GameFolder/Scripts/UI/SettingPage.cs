@@ -62,15 +62,15 @@ namespace UWAK.UI
         {
             if(index == 0)
             {
-                Screen.SetResolution(1920, 1080, true);
+                Screen.SetResolution(1920, 1080, FullScreenTOOGLE.isOn);
             }
             else if(index == 1)
             {
-                Screen.SetResolution(1280, 720, true);
+                Screen.SetResolution(1280, 720, FullScreenTOOGLE.isOn);
             }
             else if(index == 2)
             {
-                Screen.SetResolution(800, 600, true);
+                Screen.SetResolution(800, 600, FullScreenTOOGLE.isOn);
             }
         }
     }

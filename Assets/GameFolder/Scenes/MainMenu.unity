@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 245976901}
   - component: {fileID: 245976900}
   - component: {fileID: 245976903}
+  - component: {fileID: 245976904}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -445,6 +446,22 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &245976904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245976899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &362618135
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,8 +593,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4957615103567790517, guid: 8e03ba4aa71d08644bb37b2d68348c05,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.483
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957615103567790517, guid: 8e03ba4aa71d08644bb37b2d68348c05,
+        type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957615103567790517, guid: 8e03ba4aa71d08644bb37b2d68348c05,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.483
       objectReference: {fileID: 0}
     - target: {fileID: 4957615104238046580, guid: 8e03ba4aa71d08644bb37b2d68348c05,
         type: 3}
@@ -693,6 +720,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957615105140399267, guid: 8e03ba4aa71d08644bb37b2d68348c05,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.483
       objectReference: {fileID: 0}
     - target: {fileID: 4957615105140399267, guid: 8e03ba4aa71d08644bb37b2d68348c05,
         type: 3}
@@ -1092,6 +1124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010884661198363568, guid: 556d4e1ffa04ee341b47500f7b27f563,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 556d4e1ffa04ee341b47500f7b27f563, type: 3}
