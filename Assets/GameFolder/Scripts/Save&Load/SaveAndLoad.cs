@@ -46,7 +46,6 @@ namespace UWAK.SAVELOAD
             }
 
             T res = JsonUtility.FromJson<T>(content);
-
             return res;
 
         }

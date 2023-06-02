@@ -55,6 +55,10 @@ namespace UWAK.UI
                 case GameState.OPENINVENTORY:
                     SetPage(PageName.INVENTORYPAGE);
                     break;
+                case GameState.OPENGUIDE:
+                    Time.timeScale = 0;
+                    SetPage(PageName.GUIDEPAGE);
+                    break;
                 default:
                     break;
             }

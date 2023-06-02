@@ -10,5 +10,6 @@ public enum GameState
     GAMERESUME,
     WIN,
     LOSE,
-    OPENINVENTORY
+    OPENINVENTORY,
+    OPENGUIDE
 }

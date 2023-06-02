@@ -87,6 +87,15 @@ namespace StarterAssets
 		{
 			OpenInventory(value.isPressed);
 		}
+		public void OnHelp(InputValue value)
+		{
+			if (GameManager.Instance.GetGameState() == GameState.GAMERESUME || GameManager.Instance.GetGameState() == GameState.GAME)
+			{
+				GameManager.Instance.ChangeState(GameState.OPENGUIDE);
+			}
+
+		}
+
 
 #endif
 		private void UseItemInput(bool isPressed)
@@ -156,7 +165,7 @@ namespace StarterAssets
 			{
 				GameManager.Instance.ChangeState(GameState.GAMEPAUSED);
 			}
-			else if (GameManager.Instance.GetGameState() == GameState.OPENINVENTORY || GameManager.Instance.GetGameState()==GameState.GAMEPAUSED)
+			else
             {
 				GameManager.Instance.ChangeState(GameState.GAMERESUME);
             }

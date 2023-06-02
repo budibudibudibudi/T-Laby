@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,7 @@ namespace UWAK.UI
     {
         [SerializeField] GameObject inventUIParent;
         GameObject[] inventUI;
-        private void Start()
+        private void Awake()
         {
             inventUI = new GameObject[inventUIParent.transform.childCount];
             for (int i = 0; i < inventUI.Length; i++)
@@ -22,16 +23,13 @@ namespace UWAK.UI
         }
         private void OnEnable()
         {
+            RefreshUI();
             Character.Instance.onInventoryIndexChange += onInventoryIndexChange;
-            Character.Instance.onInventoryChange += onInventoryChange;
         }
-        private void OnDisable()
+
+        private void RefreshUI()
         {
-            Character.Instance.onInventoryIndexChange -= onInventoryIndexChange;
-            Character.Instance.onInventoryChange -= onInventoryChange;
-        }
-        private void onInventoryChange(ItemSlotClass[] items)
-        {
+            ItemSlotClass[] items = Character.Instance.GetCurrentItems();
             for (int i = 0; i < items.Length; i++)
             {
                 try
@@ -43,6 +41,14 @@ namespace UWAK.UI
                     inventUI[i].GetComponent<Image>().sprite = null;
                 }
             }
+        }
+
+        private void OnDisable()
+        {
+            Character.Instance.onInventoryIndexChange -= onInventoryIndexChange;
+        }
+        private void onInventoryChange(ItemSlotClass[] items)
+        {
         }
 
         private void onInventoryIndexChange(int index)

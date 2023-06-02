@@ -64,19 +64,30 @@ namespace UWAK.GAME.PLAYER
         {
             switch (state)
             {
+                case GameState.GAME:
+                    GetComponent<FirstPersonController>().enabled = true;
+                    depthOfField.focusDistance.value = 10f;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    break;
                 case GameState.WIN:
                     break;
                 case GameState.LOSE:
                     break;
                 case GameState.GAMEPAUSED:
+                    GetComponent<FirstPersonController>().enabled = false;
                     depthOfField.focusDistance.value = 0.1f;
                     Cursor.lockState = CursorLockMode.None;
                     break;
                 case GameState.GAMERESUME:
+                    GetComponent<FirstPersonController>().enabled = true;
                     depthOfField.focusDistance.value = 10f;
                     Cursor.lockState = CursorLockMode.Locked;
                     break;
                 case GameState.OPENINVENTORY:
+                    depthOfField.focusDistance.value = 0.1f;
+                    break;
+                case GameState.OPENGUIDE:
+                    GetComponent<FirstPersonController>().enabled = false;
                     depthOfField.focusDistance.value = 0.1f;
                     Cursor.lockState = CursorLockMode.None;
                     break;

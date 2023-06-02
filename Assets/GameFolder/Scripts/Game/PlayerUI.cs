@@ -9,11 +9,10 @@ using UWAK.UI;
 
 namespace UWAK.GAME.PLAYER
 {
-    public class PlayerUI : CanvasManager
+    public class PlayerUI : MonoBehaviour
     {
         [SerializeField] Slider healthBar;
         [SerializeField] Slider staminaBar;
-        [SerializeField] GameObject InventUI;
 
 
         //public void SetStaminaBar(float amount) { staminaBar.value = amount; }
@@ -30,33 +29,17 @@ namespace UWAK.GAME.PLAYER
         {
             Character.Instance.onHealthChange += onHealthChange;
             Character.Instance.onStaminaChange += onStaminaChange;
-            GameManager.Instance.onGameStateChange += OnGameStateChange;
             Character.Instance.onMaxStaminaChange += OnMaxStaminaChange;
         }
+
 
         private void OnDisable()
         {
             Character.Instance.onHealthChange -= onHealthChange;
             Character.Instance.onStaminaChange -= onStaminaChange;
-            GameManager.Instance.onGameStateChange -= OnGameStateChange;
             Character.Instance.onMaxStaminaChange -= OnMaxStaminaChange;
         }
         #endregion
-        private void OnGameStateChange(GameState state)
-        {
-            switch (state)
-            {
-                case GameState.OPENINVENTORY:
-                    InventUI.SetActive(true);
-                    break;
-                case GameState.GAMERESUME:
-                    InventUI.SetActive(false);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         private void Start()
         {
             healthBar.maxValue = Character.Instance.GetMaxHealth();

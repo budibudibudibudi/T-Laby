@@ -123,9 +123,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "BangFajiJagoUnity",
+                    "name": "Help",
                     "type": "Button",
-                    "id": "f9fe04b2-fa74-43e3-a622-c223f0b3c7fa",
+                    "id": "f69065b2-2b6c-48f5-966d-0190e66362c9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -410,12 +410,12 @@
                 },
                 {
                     "name": "",
-                    "id": "657904fe-534c-4e51-9b93-7208ea28cc42",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "Press(behavior=2)",
+                    "id": "f57dcf3b-8686-4ede-91f1-b8b647f15cbc",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "BangFajiJagoUnity",
+                    "action": "Help",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

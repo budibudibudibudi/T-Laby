@@ -11,5 +11,6 @@ public enum PageName
     PAUSEDPAGE,
     GAMEOVERPAGE,
     WINPAGE,
-    INVENTORYPAGE
+    INVENTORYPAGE,
+    GUIDEPAGE
 }

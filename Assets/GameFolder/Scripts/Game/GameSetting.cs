@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UWAK.GAME.PLAYER;
 using UWAK.ITEM;
+using UWAK.SAVELOAD;
 
 namespace UWAK.GAME
 {
@@ -17,6 +18,7 @@ namespace UWAK.GAME
         [SerializeField] GameObject spawnLocParent;
         GameObject[] spawnItemLoc;
         [SerializeField] Item[] items;
+
         #region Singleton
         public static GameSetting Instance;
         private void Awake()
@@ -31,8 +33,8 @@ namespace UWAK.GAME
             InitItemLoc();
             InitRareItemLoc();
             SpawnItems();
+            LoadData();
         }
-
         private void OnEnable()
         {
             GameManager.Instance.onGameStateChange += OnGameStateChange;
@@ -41,6 +43,27 @@ namespace UWAK.GAME
         private void OnDisable()
         {
             GameManager.Instance.onGameStateChange -= OnGameStateChange;
+        }
+
+
+        private void LoadData()
+        {
+            SaveName _isNewGame = SaveAndLoad.ReadFromJSON<SaveName>("NewGame");
+            switch (_isNewGame)
+            {
+                case SaveName.NULL:
+                    SaveAndLoad.SaveToJSON(SaveName.LEVEL1, "NewGame");
+                    GameManager.Instance.ChangeState(GameState.OPENGUIDE);
+                    break;
+                case SaveName.LEVEL1:
+                    break;
+                case SaveName.LEVEL2:
+                    break;
+                case SaveName.LEVEL3:
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnGameStateChange(GameState state)

@@ -31,6 +31,7 @@ namespace UWAK.GAME.PLAYER
         [SerializeField] ItemSlotClass[] currentItems;
         public delegate void OnInventoryChange(ItemSlotClass[] items);
         public OnInventoryChange onInventoryChange;
+        public ItemSlotClass[] GetCurrentItems() { return currentItems; }
 
         [SerializeField] private int useItemIndex;
         public delegate void OnInventoryIndexChange(int index);
