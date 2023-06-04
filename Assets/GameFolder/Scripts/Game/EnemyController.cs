@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace UWAK.GAME.ENEMY
 {
-    public class Enemy : MonoBehaviour
+    public class EnemyController : MonoBehaviour
     {
         [SerializeField] EnemyState State;
-
+        // Start is called before the first frame update
         void Start()
         {
 
@@ -19,6 +19,4 @@ namespace UWAK.GAME.ENEMY
 
         }
     }
-
-
 }

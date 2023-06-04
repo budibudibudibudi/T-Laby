@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UWAK.GAME.ENEMY;
 using UWAK.GAME.PLAYER;
 using UWAK.ITEM;
 using UWAK.SAVELOAD;
