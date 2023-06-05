@@ -15,5 +15,4 @@ public class ShortcutButton : MonoBehaviour
     {
         AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<DefaultAsset>("Assets/GameFolder/Scripts"));
     }
-    
 }

@@ -1,6 +1,10 @@
 ﻿public enum EnemyState
 {
+    NULL,
+    CHASE,
+    HIDEN,
+    STUNTED,
     PATROL,
-    STUNT,
-    ATTACK
+    SHOWED,
+    ATTACKING
 }
