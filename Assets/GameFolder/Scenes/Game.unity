@@ -38681,17 +38681,17 @@ PrefabInstance:
     - target: {fileID: 1636334611272360343, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.8
       objectReference: {fileID: 0}
     - target: {fileID: 1636334611272360343, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 1636334611272360343, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1636334611272360343, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
@@ -38736,7 +38736,7 @@ PrefabInstance:
     - target: {fileID: 1636334611272793527, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5344630260444287991, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
@@ -38761,7 +38761,12 @@ PrefabInstance:
     - target: {fileID: 5344630260444287991, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
         type: 3}
       propertyPath: patrolDistance
-      value: 10
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835907800511683995, guid: 7090f3b5ee56e2e48951491c7a05bd1b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7090f3b5ee56e2e48951491c7a05bd1b, type: 3}
