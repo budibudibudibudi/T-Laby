@@ -32,13 +32,13 @@ namespace UWAK.GAME.PLAYER
         private void Start()
         {
             Volume volumeCamera = Camera.GetComponent<Volume>();
-
-            curentHealth = Character.Instance.GetHealth();
-
             volumeCamera.profile.TryGet(out depthOfField);
             depthOfField.mode.overrideState = true;
             depthOfField.mode.value = DepthOfFieldMode.Bokeh;
             depthOfField.focusDistance.value = 10f;
+
+            curentHealth = Character.Instance.GetHealth();
+
 
             itemInHand = new Item[Hand.transform.childCount];
             for (int i = 0; i < itemInHand.Length; i++)

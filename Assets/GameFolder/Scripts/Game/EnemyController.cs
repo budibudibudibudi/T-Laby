@@ -15,14 +15,13 @@ namespace UWAK.GAME.ENEMY
         [SerializeField] private float seeDistance, attackDistance,patrolDistance;
         [SerializeField] Transform player;
         public float space = 0.7f;
-        [SerializeField] private bool keliatan;
-        [SerializeField] private float temp;
 
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             Enemy.Instance.onEnemyStateChange += OnEnemyStateChange;
         }
+
         private void OnDisable()
         {
             Enemy.Instance.onEnemyStateChange -= OnEnemyStateChange;
@@ -33,7 +32,6 @@ namespace UWAK.GAME.ENEMY
             switch (newstate)
             {
                 case EnemyState.HIDEN:
-                    print("hide");
                     gameObject.SetActive(false);
                     break;
                 case EnemyState.STUNTED:
@@ -46,11 +44,11 @@ namespace UWAK.GAME.ENEMY
                     break;
                 case EnemyState.CHASE:
                     agent.speed = sprintSpeed;
-                    agent.SetDestination(Player.Instance.transform.position);
+                    agent.SetDestination(player.position);
                     break;
                 case EnemyState.PATROL:
                     agent.speed = normalSpeed;
-                    agent.SetDestination(Player.Instance.transform.position);
+                    agent.SetDestination(player.position);
                     break;
                 case EnemyState.ATTACKING:
                     break;

@@ -57,22 +57,27 @@ namespace UWAK.GAME.PLAYER
                             case NamaItem.KOPI:
                                 currentItems[index].GetItem().Use();
                                 SubItem(currentItems[index].GetItem(), 1);
+                                GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
                             case NamaItem.NASIBUNGKUS:
                                 currentItems[index].GetItem().Use();
                                 SubItem(currentItems[index].GetItem(), 1);
+                                GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
                             case NamaItem.ESTEH:
                                 currentItems[index].GetItem().Use();
                                 SubItem(currentItems[index].GetItem(), 1);
+                                GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
                             case NamaItem.BATERAI:
                                 Item temp = Player.Instance.GetItemInHand();
-                                if(temp.itemName == NamaItem.SENTER)
-                                {
-                                    currentItems[index].GetItem().Use();
-                                    SubItem(currentItems[index].GetItem(), 1);
-                                }
+                                if(temp != null)
+                                    if(temp.itemName == NamaItem.SENTER)
+                                    {
+                                        currentItems[index].GetItem().Use();
+                                        SubItem(currentItems[index].GetItem(), 1);
+                                    }
+                                GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
                             case NamaItem.SENTER:
                                 Character.Instance.ItemOnHandChange(currentItems[index].GetItem());

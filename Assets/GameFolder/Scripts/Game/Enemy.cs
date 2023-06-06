@@ -10,7 +10,14 @@ namespace UWAK.GAME.ENEMY
         public delegate void OnEnemyStateChange(EnemyState newstate);
         public OnEnemyStateChange onEnemyStateChange;
         public EnemyState GetState() { return State; }
-        public void SetState(EnemyState newstate) { State = newstate; }
+        public void SetState(EnemyState newstate) { 
+            State = newstate;
+            onEnemyStateChange?.Invoke(State);
+        }
+
+
+
+
 
         public static Enemy Instance { get; private set; }
 
