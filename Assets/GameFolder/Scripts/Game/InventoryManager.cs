@@ -22,12 +22,12 @@ namespace UWAK.GAME.PLAYER
         #endregion
         private void OnEnable()
         {
-            Character.Instance.onInventoryIndexChange += OnInventoryIndexChange;
+            Player.Instance.onInventoryIndexChange += OnInventoryIndexChange;
         }
 
         private void OnDisable()
         {
-            Character.Instance.onInventoryIndexChange -= OnInventoryIndexChange;
+            Player.Instance.onInventoryIndexChange -= OnInventoryIndexChange;
         }
 
         private void Start()
@@ -50,7 +50,7 @@ namespace UWAK.GAME.PLAYER
                         switch (currentItems[index].GetItem().itemName)
                         {
                             case NamaItem.KUNCI:
-                                Character.Instance.ItemOnHandChange(currentItems[index].GetItem());
+                                Player.Instance.ItemOnHandChange(currentItems[index].GetItem());
                                 currentItems[index].GetItem().Use();
                                 GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
@@ -80,7 +80,7 @@ namespace UWAK.GAME.PLAYER
                                 GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
                             case NamaItem.SENTER:
-                                Character.Instance.ItemOnHandChange(currentItems[index].GetItem());
+                                Player.Instance.ItemOnHandChange(currentItems[index].GetItem());
                                 GameManager.Instance.ChangeState(GameState.GAMERESUME);
                                 break;
                             default:
@@ -90,7 +90,7 @@ namespace UWAK.GAME.PLAYER
                 }
 
             }
-            Character.Instance.InventoryUpdate(currentItems);
+            Player.Instance.InventoryUpdate(currentItems);
         }
 
         public void AddItem(Item item,int amount)
@@ -123,7 +123,7 @@ namespace UWAK.GAME.PLAYER
                     }    
                 }
             }
-            Character.Instance.InventoryUpdate(currentItems);
+            Player.Instance.InventoryUpdate(currentItems);
         }
         public void SubItem(Item item, int amount)
         {
@@ -151,7 +151,7 @@ namespace UWAK.GAME.PLAYER
                     }
                 }
             }
-            Character.Instance.InventoryUpdate(currentItems);
+            Player.Instance.InventoryUpdate(currentItems);
         }
         public ItemSlotClass Contains(Item item)
         {

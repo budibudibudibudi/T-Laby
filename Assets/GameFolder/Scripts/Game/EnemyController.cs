@@ -8,7 +8,7 @@ using UWAK.GAME.PLAYER;
 
 namespace UWAK.GAME.ENEMY
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : Enemy
     {
         NavMeshAgent agent;
         [SerializeField] private float normalSpeed, sprintSpeed;
@@ -19,16 +19,16 @@ namespace UWAK.GAME.ENEMY
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
-            Enemy.Instance.onEnemyStateChange += OnEnemyStateChange;
+            gameObject.SetActive(false);
         }
 
         private void OnDisable()
         {
-            Enemy.Instance.onEnemyStateChange -= OnEnemyStateChange;
 
         }
-        private void OnEnemyStateChange(EnemyState newstate)
+        public override void SetState(EnemyState newstate)
         {
+            base.SetState(newstate);
             switch (newstate)
             {
                 case EnemyState.HIDEN:
@@ -38,17 +38,15 @@ namespace UWAK.GAME.ENEMY
                     StartCoroutine(Stunned());
                     break;
                 case EnemyState.SHOWED:
-                    Enemy.Instance.SetState(EnemyState.PATROL);
+                    SetState(EnemyState.PATROL);
                     break;
                 case EnemyState.NULL:
                     break;
                 case EnemyState.CHASE:
                     agent.speed = sprintSpeed;
-                    agent.SetDestination(player.position);
                     break;
                 case EnemyState.PATROL:
                     agent.speed = normalSpeed;
-                    agent.SetDestination(player.position);
                     break;
                 case EnemyState.ATTACKING:
                     break;
@@ -59,6 +57,7 @@ namespace UWAK.GAME.ENEMY
 
         private void Update()
         {
+            agent.SetDestination(player.position);
             var front = transform.forward;
             var dirToPlayer = (player.position - transform.position).normalized;
 
@@ -67,40 +66,46 @@ namespace UWAK.GAME.ENEMY
 
             if (dot > space && Vector3.Distance(transform.position, player.transform.position) < seeDistance)
             {
-                Enemy.Instance.SetState(EnemyState.CHASE);
+                SetState(EnemyState.CHASE);
             }
             if (dot > space && Vector3.Distance(transform.position, player.transform.position) < attackDistance)
             {
-                if (Enemy.Instance.GetState().Equals(EnemyState.CHASE))
+                if (GetState().Equals(EnemyState.CHASE))
                     StartCoroutine(Attacking());
             }
             if (Vector3.Distance(transform.position, player.transform.position) < patrolDistance && Vector3.Distance(transform.position, player.transform.position) > seeDistance)
             {
-                Enemy.Instance.SetState(EnemyState.PATROL);
-            }
-            if (Vector3.Distance(transform.position, player.transform.position) > patrolDistance)
-            {
-                Enemy.Instance.SetState(EnemyState.HIDEN);
+                SetState(EnemyState.PATROL);
             }
         }
         private IEnumerator Stunned()
         {
             agent.isStopped = true;
             yield return new WaitForSeconds(3);
-            Enemy.Instance.SetState(EnemyState.PATROL);
+            SetState(EnemyState.PATROL);
         }
 
 
         private IEnumerator Attacking()
         {
             print("jalan");
-            Enemy.Instance.SetState(EnemyState.NULL);
+            SetState(EnemyState.NULL);
             //animasi nyerang
             agent.Move(transform.forward);
             agent.speed = 20;
             yield return new WaitForSeconds(.5f);
             agent.speed = normalSpeed;
-            Enemy.Instance.SetState(EnemyState.STUNTED);
+            SetState(EnemyState.STUNTED);
+            yield return new WaitForSeconds(1);
+            SetState(EnemyState.HIDEN);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.CompareTag("Player"))
+            {
+                Player.Instance.HealthChange(GetDamageAmount());
+            }
         }
     }
 }

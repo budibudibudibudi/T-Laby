@@ -10,7 +10,7 @@ namespace UWAK.ITEM
         public override void Use()
         {
             base.Use();
-            Character.Instance.HealthChange(50);
+            Player.Instance.HealthChange(50);
             Destroy(gameObject);
         }
         public override Senter GetSenter()

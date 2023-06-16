@@ -10,7 +10,7 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
-		[Header("Character Input Values")]
+		[Header("Player Input Values")]
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
@@ -69,19 +69,19 @@ namespace StarterAssets
 		}
 		public void OnInvenIndex1(InputValue value)
 		{
-			Character.Instance.SetInventoryIndex(0);
+			Player.Instance.SetInventoryIndex(0);
 		}
 		public void OnInvenIndex2(InputValue value)
 		{
-			Character.Instance.SetInventoryIndex(1);
+			Player.Instance.SetInventoryIndex(1);
 		}
 		public void OnInvenIndex3(InputValue value)
 		{
-			Character.Instance.SetInventoryIndex(2);
+			Player.Instance.SetInventoryIndex(2);
 		}
 		public void OnInvenIndex4(InputValue value)
 		{
-			Character.Instance.SetInventoryIndex(3);
+			Player.Instance.SetInventoryIndex(3);
 		}
 		public void OnOpenInventory(InputValue value)
 		{
@@ -101,7 +101,7 @@ namespace StarterAssets
 		private void UseItemInput(bool isPressed)
 		{
 			Item temp = Player.Instance.GetItemInHand();
-			if(temp != null && Character.Instance.GetItemHand() != null)
+			if(temp != null && Player.Instance.GetItemHand() != null)
             {
                 switch (temp.itemName)
                 {

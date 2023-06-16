@@ -27,25 +27,25 @@ namespace UWAK.GAME.PLAYER
         #region subscription
         private void OnEnable()
         {
-            Character.Instance.onHealthChange += onHealthChange;
-            Character.Instance.onStaminaChange += onStaminaChange;
-            Character.Instance.onMaxStaminaChange += OnMaxStaminaChange;
+            Player.Instance.onHealthChange += onHealthChange;
+            Player.Instance.onStaminaChange += onStaminaChange;
+            Player.Instance.onMaxStaminaChange += OnMaxStaminaChange;
         }
 
 
         private void OnDisable()
         {
-            Character.Instance.onHealthChange -= onHealthChange;
-            Character.Instance.onStaminaChange -= onStaminaChange;
-            Character.Instance.onMaxStaminaChange -= OnMaxStaminaChange;
+            Player.Instance.onHealthChange -= onHealthChange;
+            Player.Instance.onStaminaChange -= onStaminaChange;
+            Player.Instance.onMaxStaminaChange -= OnMaxStaminaChange;
         }
         #endregion
         private void Start()
         {
-            healthBar.maxValue = Character.Instance.GetMaxHealth();
-            healthBar.value = Character.Instance.GetHealth();
-            staminaBar.maxValue = Character.Instance.GetStamina();
-            staminaBar.value = Character.Instance.GetStamina();
+            healthBar.maxValue = Player.Instance.GetMaxHealth();
+            healthBar.value = Player.Instance.GetHealth();
+            staminaBar.maxValue = Player.Instance.GetStamina();
+            staminaBar.value = Player.Instance.GetStamina();
 
         }
 

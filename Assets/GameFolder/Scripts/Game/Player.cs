@@ -8,7 +8,7 @@ using UWAK.SCRIPTABLE;
 
 namespace UWAK.GAME.PLAYER
 {
-    public class Player : MonoBehaviour
+    public class Player : Character
     {
         [SerializeField] GameObject Camera;
         [SerializeField] GameObject itemParent;
@@ -37,7 +37,7 @@ namespace UWAK.GAME.PLAYER
             depthOfField.mode.value = DepthOfFieldMode.Bokeh;
             depthOfField.focusDistance.value = 10f;
 
-            curentHealth = Character.Instance.GetHealth();
+            curentHealth = GetHealth();
 
 
             itemInHand = new Item[Hand.transform.childCount];
@@ -49,15 +49,15 @@ namespace UWAK.GAME.PLAYER
         private void OnEnable()
         {
             GameManager.Instance.onGameStateChange +=OnGameStateChange;
-            Character.Instance.onHealthChange += OnHealthChange;
-            Character.Instance.onHandChange += OnHandChange;
+            onHealthChange += OnHealthChange;
+            onHandChange += OnHandChange;
         }
 
         private void OnDisable()
         {
             GameManager.Instance.onGameStateChange -= OnGameStateChange;
-            Character.Instance.onHealthChange -= OnHealthChange;
-            Character.Instance.onHandChange -= OnHandChange;
+            onHealthChange -= OnHealthChange;
+            onHandChange -= OnHandChange;
         }
 
         private void OnGameStateChange(GameState state)
@@ -96,7 +96,7 @@ namespace UWAK.GAME.PLAYER
             }
         }
 
-        private void OnHandChange(Item _itemInHand)
+        private new void OnHandChange(Item _itemInHand)
         {
             foreach (var items in itemInHand)
             {
@@ -116,7 +116,7 @@ namespace UWAK.GAME.PLAYER
 
             }
         }
-        private void OnHealthChange(int health)
+        private new void OnHealthChange(int health)
         {
             if(health<curentHealth)
             {

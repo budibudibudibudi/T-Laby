@@ -11,5 +11,6 @@ public enum GameState
     WIN,
     LOSE,
     OPENINVENTORY,
-    OPENGUIDE
+    OPENGUIDE,
+    CHASEEVENT
 }

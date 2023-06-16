@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UWAK.GAME.ENEMY;
 using UWAK.GAME.PLAYER;
+using UWAK.GAME.TRIGGER;
 using UWAK.ITEM;
 using UWAK.SAVELOAD;
 
@@ -12,7 +14,7 @@ namespace UWAK.GAME
     public class GameSetting : MonoBehaviour
     {
         [SerializeField] Player player;
-        [SerializeField] Enemy enemy;
+        [SerializeField] EnemyController enemy;
 
         [SerializeField] GameObject spawnRareItemLocParent;
         GameObject[] spawnRareItemLoc;
@@ -20,6 +22,7 @@ namespace UWAK.GAME
         GameObject[] spawnItemLoc;
         [SerializeField] Item[] items;
 
+        [SerializeField] EnemyTriggerManager[] triggerSlots;
         #region Singleton
         public static GameSetting Instance;
         private void Awake()
@@ -39,11 +42,23 @@ namespace UWAK.GAME
         private void OnEnable()
         {
             GameManager.Instance.onGameStateChange += OnGameStateChange;
+            Actions.TriggerIndex += Triggered;
         }
 
         private void OnDisable()
         {
             GameManager.Instance.onGameStateChange -= OnGameStateChange;
+            Actions.TriggerIndex -= Triggered;
+        }
+
+        private void Triggered(int obj)
+        {
+            enemy.gameObject.SetActive(true);
+            enemy.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            enemy.transform.position = triggerSlots[obj].spawnLoc.position;
+            enemy.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            enemy.SetState(EnemyState.PATROL);
+            GameManager.Instance.ChangeState(GameState.CHASEEVENT);
         }
 
 

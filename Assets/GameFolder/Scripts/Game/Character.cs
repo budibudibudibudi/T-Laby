@@ -50,7 +50,7 @@ namespace UWAK.GAME.PLAYER
             maxStamina += amount;
             onMaxStaminaChange?.Invoke(maxStamina);
         }
-        public void ItemOnHandChange(Item? item)
+        public void ItemOnHandChange(Item item)
         {
             itemHand = item;
             onHandChange?.Invoke(itemHand);
@@ -75,16 +75,5 @@ namespace UWAK.GAME.PLAYER
             useItemIndex = index;
             onInventoryIndexChange?.Invoke(useItemIndex);
         }
-        #region singleton
-        public static Character Instance;
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-        }
-
-        #endregion
     }
 }

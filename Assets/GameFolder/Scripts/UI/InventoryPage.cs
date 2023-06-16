@@ -24,12 +24,12 @@ namespace UWAK.UI
         private void OnEnable()
         {
             RefreshUI();
-            Character.Instance.onInventoryIndexChange += onInventoryIndexChange;
+            Player.Instance.onInventoryIndexChange += onInventoryIndexChange;
         }
 
         private void RefreshUI()
         {
-            ItemSlotClass[] items = Character.Instance.GetCurrentItems();
+            ItemSlotClass[] items = Player.Instance.GetCurrentItems();
             for (int i = 0; i < items.Length; i++)
             {
                 try
@@ -45,7 +45,7 @@ namespace UWAK.UI
 
         private void OnDisable()
         {
-            Character.Instance.onInventoryIndexChange -= onInventoryIndexChange;
+            Player.Instance.onInventoryIndexChange -= onInventoryIndexChange;
         }
         private void onInventoryChange(ItemSlotClass[] items)
         {

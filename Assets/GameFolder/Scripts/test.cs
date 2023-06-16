@@ -5,21 +5,18 @@ using UWAK.GAME.PLAYER;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class test : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
+public class test : MonoBehaviour
 {
-    bool a;
-    private void Update()
+    private IEnumerator Start()
     {
-        if (a)
-            Debug.Log("exit");
+        var go = new GameObject("", typeof(test2));
+        print(go == null);
+        Destroy(go);
+        yield return new WaitForEndOfFrame();
+        print(go == null);
     }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        a = true;
-    }
+}
+public class test2 : MonoBehaviour
+{
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        a = false;
-    }
 }

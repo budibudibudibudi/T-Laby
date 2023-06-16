@@ -211,24 +211,24 @@ namespace UWAK.GAME.PLAYER
 		{
 			if(_input.sprint)
             {
-				if(Character.Instance.GetStamina() > 0)
+				if(Player.Instance.GetStamina() > 0)
                 {
 					currentSpeed = SprintSpeed;
-					Character.Instance.StaminaChange(-1 * Time.deltaTime);
+					Player.Instance.StaminaChange(-1 * Time.deltaTime);
 				}
                 else
                 {
 					_input.sprint = false;
 					currentSpeed = MoveSpeed;
-					Character.Instance.StaminaChange(1 * Time.deltaTime);
+					Player.Instance.StaminaChange(1 * Time.deltaTime);
 				}
             }
             else
             {
 				currentSpeed = MoveSpeed;
-                if (Character.Instance.GetStamina() < Character.Instance.GetMaxStamina())
+                if (Player.Instance.GetStamina() < Player.Instance.GetMaxStamina())
                 {
-					Character.Instance.StaminaChange(1 * Time.deltaTime);
+					Player.Instance.StaminaChange(1 * Time.deltaTime);
 				}
 
             }

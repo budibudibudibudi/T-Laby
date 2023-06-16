@@ -8,7 +8,7 @@ namespace UWAK.ITEM
         public override void Use()
         {
             base.Use();
-            Character.Instance.AddMaxStamina(1);
+            Player.Instance.AddMaxStamina(1);
             Destroy(gameObject);
         }
         public override Senter GetSenter()
