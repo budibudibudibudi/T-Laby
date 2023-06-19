@@ -11,6 +11,7 @@ using UWAK.SAVELOAD;
 
 namespace UWAK.GAME
 {
+    [ExecuteInEditMode]
     public class GameSetting : MonoBehaviour
     {
         [SerializeField] Player player;
@@ -23,6 +24,13 @@ namespace UWAK.GAME
         [SerializeField] Item[] items;
 
         [SerializeField] EnemyTriggerManager[] triggerSlots;
+        [Range(0, 1)]
+        [SerializeField] float anglePenglihatanPlayer;
+
+        [SerializeField] int lineCount = 10;
+        [SerializeField] float radiusSpawn = 10;
+        [SerializeField] float offsetY;
+        public LayerMask layerMask;
         #region Singleton
         public static GameSetting Instance;
         private void Awake()
@@ -153,6 +161,56 @@ namespace UWAK.GAME
                 GetLocation(types);
             }
             return null;
+        }
+        public Vector3 GetBackPlayerPosition()
+        {
+            float distance = 0;
+            var point = Vector3.zero;
+
+            for (int i = 0; i < lineCount; i++)
+            {
+                var angle = 360f / lineCount;
+                var vecFromAngle = GetVectorFromAngle(angle * i);
+                var tarVec = new Vector3(vecFromAngle.x, 0, vecFromAngle.y) * radiusSpawn;
+
+                var origin = player.transform.position + Vector3.up * offsetY;
+                var targetPosition = (player.transform.position + tarVec) + Vector3.up * offsetY;
+
+                var dir = targetPosition - origin;
+                if (Vector3.Dot(dir.normalized, player.transform.forward.normalized) > anglePenglihatanPlayer)
+                {
+                    continue;
+                }
+
+                var ray = Physics.Raycast(origin, dir.normalized, out var hitResult, radiusSpawn);
+
+                if (ray)
+                {
+                    //hit.point
+                    //9.8 > 10
+                    if (hitResult.distance > distance)
+                    {
+                        distance = hitResult.distance;
+                        point = hitResult.point;
+                    }
+                    Debug.DrawLine(origin, hitResult.point, Color.red);
+
+                }
+                else
+                {
+                    // targetposition
+                    distance = radiusSpawn;
+                    point = targetPosition;
+                    Debug.DrawLine(origin, targetPosition, Color.blue);
+                }
+            }
+            return point;
+        }
+
+        public static Vector2 GetVectorFromAngle(float angle)
+        {
+            return new Vector2(Mathf.Cos(angle * ((float)Math.PI / 180f)), Mathf.Sin(angle * (Mathf.PI / 180f)))
+                .normalized;
         }
     }
 }

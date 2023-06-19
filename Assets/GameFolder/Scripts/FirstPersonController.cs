@@ -87,6 +87,8 @@ namespace UWAK.GAME.PLAYER
 			}
 		}
 
+
+
 		private void Awake()
 		{
 			// get a reference to our main camera

@@ -27,17 +27,16 @@ namespace UWAK.GAME.PLAYER
         public float GetMaxStamina() { return maxStamina; }
         public delegate void OnMaxStaminaChange(float amount);
         public OnMaxStaminaChange onMaxStaminaChange;
-
-        [SerializeField] ItemSlotClass[] currentItems;
+        [SerializeField] [ReadOnlyInspector] ItemSlotClass[] currentItems;
         public delegate void OnInventoryChange(ItemSlotClass[] items);
         public OnInventoryChange onInventoryChange;
         public ItemSlotClass[] GetCurrentItems() { return currentItems; }
 
-        [SerializeField] private int useItemIndex;
+        [SerializeField][ReadOnlyInspector] private int useItemIndex;
         public delegate void OnInventoryIndexChange(int index);
         public OnInventoryIndexChange onInventoryIndexChange;
 
-        [SerializeField] Item itemHand;
+        [SerializeField][ReadOnlyInspector] Item itemHand;
         public Item GetItemHand() { return itemHand; }
         public delegate void OnHandChange(Item item);
         public OnHandChange onHandChange;

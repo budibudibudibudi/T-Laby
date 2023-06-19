@@ -18,23 +18,19 @@ namespace UWAK.GAME.TRIGGER
         }
         private void OnGameStateChange(GameState state)
         {
-            int random = UnityEngine.Random.Range(0, 100);
-            if(random <= 90)
+            switch (state)
             {
-                switch (state)
-                {
-                    case GameState.GAME:
-                        GetComponent<Collider>().enabled = true;
-                        break;
-                    case GameState.GAMERESUME:
-                        GetComponent<Collider>().enabled = true;
-                        break;
-                    case GameState.CHASEEVENT:
-                        GetComponent<Collider>().enabled = false;
-                        break;
-                    default:
-                        break;
-                }
+                case GameState.GAME:
+                    GetComponent<Collider>().enabled = true;
+                    break;
+                case GameState.GAMERESUME:
+                    GetComponent<Collider>().enabled = true;
+                    break;
+                case GameState.CHASEEVENT:
+                    GetComponent<Collider>().enabled = false;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -42,9 +38,13 @@ namespace UWAK.GAME.TRIGGER
         [SerializeField] private int Index;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            int random = UnityEngine.Random.Range(0, 100);
+            if (random <= 50)
             {
-                Actions.TriggerIndex.Invoke(Index);
+                if (other.CompareTag("Player"))
+                {
+                    Actions.TriggerIndex.Invoke(Index);
+                }
             }
         }
     }
