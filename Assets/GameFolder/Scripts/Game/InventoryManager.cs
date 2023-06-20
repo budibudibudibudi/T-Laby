@@ -10,7 +10,7 @@ namespace UWAK.GAME.PLAYER
 {
     public class InventoryManager : MonoBehaviour
     {
-        [SerializeField] ItemSlotClass[] currentItems;
+        [SerializeField][ReadOnlyInspector] ItemSlotClass[] currentItems;
         [SerializeField] GameObject itemParent;
 
         #region SINGLETON

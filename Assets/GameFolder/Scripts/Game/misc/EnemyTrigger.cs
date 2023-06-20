@@ -39,7 +39,7 @@ namespace UWAK.GAME.TRIGGER
         private void OnTriggerEnter(Collider other)
         {
             int random = UnityEngine.Random.Range(0, 100);
-            if (random <= 50)
+            if (random <= 75)
             {
                 if (other.CompareTag("Player"))
                 {

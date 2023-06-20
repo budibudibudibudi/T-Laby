@@ -16,9 +16,11 @@ namespace UWAK.GAME.ENEMY
         [SerializeField] Transform player;
         public float space = 0.7f;
 
+        Animator anim;
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            anim = GetComponent<Animator>();
             gameObject.SetActive(false);
         }
 
@@ -43,17 +45,26 @@ namespace UWAK.GAME.ENEMY
                 case EnemyState.NULL:
                     break;
                 case EnemyState.CHASE:
+                    anim.Play("run");
+                    agent.isStopped = false;
                     agent.speed = sprintSpeed;
                     break;
                 case EnemyState.PATROL:
+                    anim.Play("walk");
+                    agent.isStopped = false;
                     agent.speed = normalSpeed;
                     break;
                 case EnemyState.ATTACKING:
+                    StartCoroutine(Attacking());
+                    break;
+                case EnemyState.IDLE:
+                    StartCoroutine(Idle());
                     break;
                 default:
                     break;
             }
         }
+
 
         private void Update()
         {
@@ -71,32 +82,48 @@ namespace UWAK.GAME.ENEMY
             if (dot > space && Vector3.Distance(transform.position, player.transform.position) < attackDistance)
             {
                 if (GetState().Equals(EnemyState.CHASE))
-                    StartCoroutine(Attacking());
+                {
+                    SetState(EnemyState.ATTACKING);
+                }
             }
             if (Vector3.Distance(transform.position, player.transform.position) < patrolDistance && Vector3.Distance(transform.position, player.transform.position) > seeDistance)
             {
                 SetState(EnemyState.PATROL);
             }
         }
+        private IEnumerator Idle()
+        {
+            anim.Play("roar");
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                agent.isStopped = true;
+                yield return null;
+            }
+            SetState(EnemyState.PATROL);
+            agent.isStopped = false;
+        }
         private IEnumerator Stunned()
         {
             agent.isStopped = true;
-            yield return new WaitForSeconds(3);
+            anim.Play("gethit");
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                agent.isStopped = true;
+                yield return null;
+            }
             SetState(EnemyState.PATROL);
+            agent.isStopped = false;
         }
 
 
         private IEnumerator Attacking()
         {
-            print("jalan");
-            SetState(EnemyState.NULL);
-            //animasi nyerang
+            anim.Play("attack");
             agent.Move(transform.forward);
-            agent.speed = 20;
+            agent.speed = 8;
             yield return new WaitForSeconds(.5f);
             agent.speed = normalSpeed;
-            SetState(EnemyState.STUNTED);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(.5f);
             SetState(EnemyState.HIDEN);
         }
 
@@ -104,7 +131,7 @@ namespace UWAK.GAME.ENEMY
         {
             if(other.CompareTag("Player"))
             {
-                Player.Instance.HealthChange(GetDamageAmount());
+                Player.Instance.HealthChange(-GetDamageAmount());
             }
         }
     }

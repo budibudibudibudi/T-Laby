@@ -15,7 +15,8 @@ namespace UWAK.ITEM
         public Sprite Icon;
         
         protected AudioSource source;
-        [SerializeField] protected AudioClip sfx;
+        [SerializeField] protected AudioClip useSfx;
+        [SerializeField] protected AudioClip addItemSfx;
 
         private void OnEnable()
         {
@@ -25,15 +26,15 @@ namespace UWAK.ITEM
         }
         public virtual void Use()
         {
-            source?.PlayOneShot(sfx);
+            source?.PlayOneShot(useSfx);
         }
         public virtual void Use(bool value)
         {
-            source?.PlayOneShot(sfx);
+            source?.PlayOneShot(useSfx);
         }
         public virtual void AddToInventory()
         {
-            source?.PlayOneShot(sfx);
+            source?.PlayOneShot(addItemSfx);
             InventoryManager.Instance.AddItem(this, 1);
         }
         public abstract Senter GetSenter();

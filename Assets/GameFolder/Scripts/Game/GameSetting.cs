@@ -11,7 +11,6 @@ using UWAK.SAVELOAD;
 
 namespace UWAK.GAME
 {
-    [ExecuteInEditMode]
     public class GameSetting : MonoBehaviour
     {
         [SerializeField] Player player;
@@ -23,7 +22,6 @@ namespace UWAK.GAME
         GameObject[] spawnItemLoc;
         [SerializeField] Item[] items;
 
-        [SerializeField] EnemyTriggerManager[] triggerSlots;
         [Range(0, 1)]
         [SerializeField] float anglePenglihatanPlayer;
 
@@ -63,9 +61,9 @@ namespace UWAK.GAME
         {
             enemy.gameObject.SetActive(true);
             enemy.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            enemy.transform.position = triggerSlots[obj].spawnLoc.position;
+            enemy.transform.position = GetBackPlayerPosition();
             enemy.gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            enemy.SetState(EnemyState.PATROL);
+            enemy.SetState(EnemyState.IDLE);
             GameManager.Instance.ChangeState(GameState.CHASEEVENT);
         }
 
