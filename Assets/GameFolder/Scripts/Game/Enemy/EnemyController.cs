@@ -12,9 +12,10 @@ namespace UWAK.GAME.ENEMY
     {
         NavMeshAgent agent;
         [SerializeField] private float normalSpeed, sprintSpeed;
-        [SerializeField] private float seeDistance, attackDistance,patrolDistance;
+        [SerializeField] private float seeDistance, attackDistance, patrolDistance;
         [SerializeField] Transform player;
         public float space = 0.7f;
+
 
         Animator anim;
         private void Start()
@@ -22,11 +23,6 @@ namespace UWAK.GAME.ENEMY
             agent = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
             gameObject.SetActive(false);
-        }
-
-        private void OnDisable()
-        {
-
         }
         public override void SetState(EnemyState newstate)
         {
@@ -104,18 +100,27 @@ namespace UWAK.GAME.ENEMY
         }
         private IEnumerator Stunned()
         {
-            agent.isStopped = true;
             anim.Play("gethit");
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
                 agent.isStopped = true;
                 yield return null;
             }
-            SetState(EnemyState.PATROL);
-            agent.isStopped = false;
+            bool cekArea = CheckPlayerInArea();
+            if (cekArea)
+                SetState(EnemyState.PATROL);
+            else
+                SetState(EnemyState.HIDEN);
         }
 
-
+        private bool CheckPlayerInArea()
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) < patrolDistance && Vector3.Distance(transform.position, player.transform.position) > seeDistance)
+            {
+                return true;
+            }
+            return false;
+        }
         private IEnumerator Attacking()
         {
             anim.Play("attack");
@@ -123,15 +128,15 @@ namespace UWAK.GAME.ENEMY
             agent.speed = 8;
             yield return new WaitForSeconds(.5f);
             agent.speed = normalSpeed;
-            yield return new WaitForSeconds(.5f);
-            SetState(EnemyState.HIDEN);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
                 Player.Instance.HealthChange(-GetDamageAmount());
+                GameManager.Instance.ChangeState(GameState.GAMERESUME);
+                SetState(EnemyState.HIDEN);
             }
         }
     }

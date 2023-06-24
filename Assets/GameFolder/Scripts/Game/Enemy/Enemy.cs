@@ -17,15 +17,7 @@ namespace UWAK.GAME.ENEMY
 
         [SerializeField] private int Damage;
         public int GetDamageAmount() { return Damage; }
-        public static Enemy Instance { get; private set; }
 
-        private void Awake()
-        {
-            if (!Instance)
-                Instance = this;
-            else
-                Destroy(gameObject);
-        }
     }
 
 

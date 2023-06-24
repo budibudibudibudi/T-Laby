@@ -115,42 +115,46 @@ namespace UWAK.GAME.PLAYER
 
 		private void Update()
 		{
-			JumpAndGravity();
-			GroundedCheck();
-			Move();
-			Crouching();
+			if(Player.Instance.GetState() == PLAYERSTATE.NORMAL)
+            {
 
-			RaycastHit hit;
-			if (!Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.TransformDirection(Vector3.forward), out hit, distanceRaycast))
-			{
-			}
-			else
-			{
-				if (hit.collider.CompareTag("Pintu"))
+				JumpAndGravity();
+				GroundedCheck();
+				Move();
+				Crouching();
+
+				RaycastHit hit;
+				if (!Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.TransformDirection(Vector3.forward), out hit, distanceRaycast))
 				{
-					if (_input.interact)
+				}
+				else
+				{
+					if (hit.collider.CompareTag("Pintu"))
 					{
-						Door pintu = hit.collider.gameObject.GetComponent<Door>();
-						if (!pintu.GetDoorState())
+						if (_input.interact)
 						{
-							//StartCoroutine(pintu.SetDoorState(true));
-							pintu.Use(true);
-						}
-						else
-						{
-							//StartCoroutine(pintu.SetDoorState(false));
-							pintu.Use(false);
+							Door pintu = hit.collider.gameObject.GetComponent<Door>();
+							if (!pintu.GetDoorState())
+							{
+								//StartCoroutine(pintu.SetDoorState(true));
+								pintu.Use(true);
+							}
+							else
+							{
+								//StartCoroutine(pintu.SetDoorState(false));
+								pintu.Use(false);
+							}
 						}
 					}
-				}
-				else if (hit.collider.CompareTag("InventoryItem"))
-				{
-					if (_input.interact)
+					else if (hit.collider.CompareTag("InventoryItem"))
 					{
-						Item item = hit.collider.gameObject.GetComponent<Item>();
-						if (item != null)
+						if (_input.interact)
 						{
-							item.AddToInventory();
+							Item item = hit.collider.gameObject.GetComponent<Item>();
+							if (item != null)
+							{
+								item.AddToInventory();
+							}
 						}
 					}
 				}

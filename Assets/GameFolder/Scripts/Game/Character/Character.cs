@@ -10,6 +10,11 @@ namespace UWAK.GAME.PLAYER
 {
     public class Character : MonoBehaviour
     {
+        [SerializeField] PLAYERSTATE state;
+        public PLAYERSTATE GetState() { return state; }
+        public delegate void OnPlayerStateChange(PLAYERSTATE newstate);
+        public OnPlayerStateChange onPlayerStateChange;
+
         [SerializeField] private int health = 100;
         public int GetHealth() { return health; }
         public delegate void OnHealthChange(int health);
@@ -43,6 +48,11 @@ namespace UWAK.GAME.PLAYER
         private void Start()
         {
             currentItems = new ItemSlotClass[6];
+        }
+        public void SetState(PLAYERSTATE newstate)
+        {
+            state = newstate;
+            onPlayerStateChange.Invoke(state);
         }
         public void AddMaxStamina(float amount)
         {

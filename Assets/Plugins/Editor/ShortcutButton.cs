@@ -6,13 +6,18 @@ using UnityEngine;
 public class ShortcutButton : MonoBehaviour
 {
     [ToolbarRight]
-    public static void OpenSceneFolder()
+    public static void OpenScene()
     {
         AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<DefaultAsset>("Assets/GameFolder/Scenes"));
     }
     [ToolbarRight]
-    public static void OpenScriptFolder()
+    public static void OpenScript()
     {
         AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<DefaultAsset>("Assets/GameFolder/Scripts"));
+    }
+    [ToolbarRight]
+    public static void OpenPrefab()
+    {
+        AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<DefaultAsset>("Assets/GameFolder/Prefabs"));
     }
 }

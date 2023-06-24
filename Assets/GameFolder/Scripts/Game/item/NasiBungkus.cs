@@ -11,6 +11,7 @@ namespace UWAK.ITEM
         {
             base.Use();
             Player.Instance.HealthChange(50);
+            Player.Instance.SetState(PLAYERSTATE.EAT);
             Destroy(gameObject);
         }
         public override Senter GetSenter()

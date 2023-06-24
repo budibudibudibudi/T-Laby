@@ -114,6 +114,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "InvenIndex5",
+                    "type": "Button",
+                    "id": "59415d22-225f-4a3c-9cee-72ed4e8988e8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InvenIndex6",
+                    "type": "Button",
+                    "id": "2429b52b-cbdb-49f1-a7a2-440e308fc1ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "OpenInventory",
                     "type": "Button",
                     "id": "aec7e05b-9c36-449b-9308-1e47104dba75",
@@ -416,6 +434,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Help",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ff7d668-0079-4415-bdde-250113663b17",
+                    "path": "<Keyboard>/4",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InvenIndex5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a3edd35-a214-4269-8af0-c3b376aba7f7",
+                    "path": "<Keyboard>/4",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InvenIndex6",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

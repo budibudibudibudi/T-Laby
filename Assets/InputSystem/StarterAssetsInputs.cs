@@ -83,6 +83,14 @@ namespace StarterAssets
 		{
 			Player.Instance.SetInventoryIndex(3);
 		}
+		public void OnInvenIndex5(InputValue value)
+		{
+			Player.Instance.SetInventoryIndex(4);
+		}
+		public void OnInvenIndex6(InputValue value)
+		{
+			Player.Instance.SetInventoryIndex(5);
+		}
 		public void OnOpenInventory(InputValue value)
 		{
 			OpenInventory(value.isPressed);
@@ -149,26 +157,33 @@ namespace StarterAssets
 
 		private void OpenInventory(bool isPressed)
 		{
-			if (GameManager.Instance.GetGameState() != GameState.OPENINVENTORY)
+			if(GameManager.Instance.GetGameState()!= GameState.CHASEEVENT)
 			{
-				GameManager.Instance.ChangeState(GameState.OPENINVENTORY);
-			}
-			else
-			{
-				GameManager.Instance.ChangeState(GameState.GAMERESUME);
+				if (GameManager.Instance.GetGameState() != GameState.OPENINVENTORY)
+				{
+					GameManager.Instance.ChangeState(GameState.OPENINVENTORY);
+				}
+				else
+				{
+					GameManager.Instance.ChangeState(GameState.GAMERESUME);
+				}
+
 			}
 		}
 
 		private void PauseInput(bool isPressed)
 		{
-			if (GameManager.Instance.GetGameState() == GameState.GAMERESUME || GameManager.Instance.GetGameState() == GameState.GAME)
-			{
-				GameManager.Instance.ChangeState(GameState.GAMEPAUSED);
-			}
-			else
+			if (GameManager.Instance.GetGameState() != GameState.CHASEEVENT)
             {
-				GameManager.Instance.ChangeState(GameState.GAMERESUME);
-            }
+				if (GameManager.Instance.GetGameState() == GameState.GAMERESUME || GameManager.Instance.GetGameState() == GameState.GAME)
+				{
+					GameManager.Instance.ChangeState(GameState.GAMEPAUSED);
+				}
+				else
+				{
+					GameManager.Instance.ChangeState(GameState.GAMERESUME);
+				}
+			}
 		}
 		public void SprintInput(bool newSprintState)
 		{

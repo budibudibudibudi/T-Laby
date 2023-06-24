@@ -7,16 +7,8 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
-    private IEnumerator Start()
+    private void OnTriggerEnter(Collider other)
     {
-        var go = new GameObject("", typeof(test2));
-        print(go == null);
-        Destroy(go);
-        yield return new WaitForEndOfFrame();
-        print(go == null);
+        print(other.gameObject.name);
     }
-}
-public class test2 : MonoBehaviour
-{
-
 }

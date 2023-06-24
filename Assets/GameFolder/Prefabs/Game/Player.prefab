@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3001247170105036555}
   - component: {fileID: 189817599227863344}
   - component: {fileID: 5994483757949000653}
-  - component: {fileID: 3216916821537619403}
   - component: {fileID: 4892701830759823576}
   - component: {fileID: 5038468749806003312}
   - component: {fileID: 7854155894360363739}
@@ -55,6 +54,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9221ff1c38877a64694064e002204696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 50
+  maxHealth: 100
+  stamina: 20
+  maxStamina: 20
+  currentItems: []
+  useItemIndex: 0
+  itemHand: {fileID: 0}
   Camera: {fileID: 5569269450843573824}
   itemParent: {fileID: 8972735812129477036}
   Hand: {fileID: 3776515956535727356}
@@ -87,25 +93,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentItems: []
   itemParent: {fileID: 8972735812129477036}
---- !u!114 &3216916821537619403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1084592881922483031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce3d86a2af9e784bbab98baff7640a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 50
-  maxHealth: 100
-  stamina: 20
-  maxStamina: 20
-  currentItems: []
-  useItemIndex: 0
-  itemHand: {fileID: 0}
 --- !u!143 &4892701830759823576
 CharacterController:
   m_ObjectHideFlags: 0
@@ -246,7 +233,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Light
       value: 
-      objectReference: {fileID: 5130668324366052650}
+      objectReference: {fileID: 0}
     - target: {fileID: 65184309447836555, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: bateraiValue
@@ -276,6 +263,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_InnerSpotAngle
       value: 10.848486
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_SpotAngle
+      value: 85.113785
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 7.42457
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_ColorTemperature
+      value: 15707
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803693485556444712, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_UseColorTemperature
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647855789016214417, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6250908658668516737, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
@@ -352,12 +384,6 @@ PrefabInstance:
 --- !u!1 &3776515956535727356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 421680526421042523, guid: 2d3a85ecde41a8246a79669975912b74,
-    type: 3}
-  m_PrefabInstance: {fileID: 3581203330785784231}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5130668324366052650 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8539166690645204109, guid: 2d3a85ecde41a8246a79669975912b74,
     type: 3}
   m_PrefabInstance: {fileID: 3581203330785784231}
   m_PrefabAsset: {fileID: 0}

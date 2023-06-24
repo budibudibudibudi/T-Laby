@@ -102,7 +102,7 @@ namespace UWAK.GAME
                     //audio
                     break;
                 case GameState.LOSE:
-                    player.Death();
+                    Player.Instance.SetState(PLAYERSTATE.DEATH);
                     //audio
                     break;
                 default:

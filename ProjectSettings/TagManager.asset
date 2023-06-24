@@ -8,6 +8,7 @@ TagManager:
   - Pintu
   - InventoryItem
   - EnemyTrigger
+  - Senter
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
-using StarterAssets;
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -16,8 +17,10 @@ namespace UWAK.GAME.PLAYER
         [SerializeField] Item[] itemInHand;
 
         DepthOfField depthOfField;
+        Vignette vignette;
+        Animator anim;
 
-        private int curentHealth;
+        [SerializeField]private int curentHealth;
 
         #region SINGLETON
         public static Player Instance;
@@ -33,11 +36,13 @@ namespace UWAK.GAME.PLAYER
         {
             Volume volumeCamera = Camera.GetComponent<Volume>();
             volumeCamera.profile.TryGet(out depthOfField);
+            volumeCamera.profile.TryGet(out vignette);
             depthOfField.mode.overrideState = true;
             depthOfField.mode.value = DepthOfFieldMode.Bokeh;
             depthOfField.focusDistance.value = 10f;
 
             curentHealth = GetHealth();
+            vignette.intensity.value = Mathf.Abs(((float)curentHealth*.01f)-1);
 
 
             itemInHand = new Item[Hand.transform.childCount];
@@ -46,20 +51,47 @@ namespace UWAK.GAME.PLAYER
                 itemInHand[i] = Hand.transform.GetChild(i).GetComponent<Item>();
             }
         }
+
+
         private void OnEnable()
         {
             GameManager.Instance.onGameStateChange +=OnGameStateChange;
-            onHealthChange += OnHealthChange;
+            onPlayerStateChange += OnPlayerStateChange;
             onHandChange += OnHandChange;
+            onHealthChange += OnHealthChange;
         }
+
 
         private void OnDisable()
         {
             GameManager.Instance.onGameStateChange -= OnGameStateChange;
-            onHealthChange -= OnHealthChange;
             onHandChange -= OnHandChange;
+            onHealthChange -= OnHealthChange;
+            onPlayerStateChange -= OnPlayerStateChange;
         }
 
+        private new void OnPlayerStateChange(PLAYERSTATE newstate)
+        {
+            switch (newstate)
+            {
+                case PLAYERSTATE.NORMAL:
+                    break;
+                case PLAYERSTATE.HITTED:
+                    StartCoroutine(GetHit());
+                    break;
+                case PLAYERSTATE.EAT:
+                    StartCoroutine( UseItemAnimation(""));
+                    break;
+                case PLAYERSTATE.DRINK:
+                    // start korotin use item
+                    break;
+                case PLAYERSTATE.DEATH:
+                    StartCoroutine(Death());
+                    break;
+                default:
+                    break;
+            }
+        }
         private void OnGameStateChange(GameState state)
         {
             switch (state)
@@ -96,6 +128,14 @@ namespace UWAK.GAME.PLAYER
             }
         }
 
+        private new void OnHealthChange(int health)
+        {
+            if (health < curentHealth)
+                SetState(PLAYERSTATE.HITTED);
+
+            curentHealth = health;
+            vignette.intensity.value = Mathf.Abs(((float)curentHealth * .01f) - 1);
+        }
         private new void OnHandChange(Item _itemInHand)
         {
             foreach (var items in itemInHand)
@@ -116,27 +156,6 @@ namespace UWAK.GAME.PLAYER
 
             }
         }
-        private new void OnHealthChange(int health)
-        {
-            if(health<curentHealth)
-            {
-                //animasi hitted
-            }
-            else if(health>curentHealth)
-            {
-                //animasi healed
-            }
-            curentHealth = health;
-            if(curentHealth <= 0)
-            {
-                GameManager.Instance.ChangeState(GameState.LOSE);
-            }
-        }
-        public void Death()
-        {
-            //animasi death jg
-        }
-
         public Item GetItemInHand()
         {
             for (int i = 0; i < itemInHand.Length; i++)
@@ -148,6 +167,24 @@ namespace UWAK.GAME.PLAYER
             }
             return null;
         }
+        private IEnumerator GetHit()
+        {
+            SetState(PLAYERSTATE.NORMAL);
+            yield return null;
+        }
+
+
+        private IEnumerator Death()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerator UseItemAnimation(string name)
+        {
+            SetState(PLAYERSTATE.NORMAL);
+            yield return null;
+        }
+
     }
 
 }

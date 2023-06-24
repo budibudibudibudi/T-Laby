@@ -101,7 +101,8 @@ MonoBehaviour:
   rareItem: 1
   isInventoryItem: 1
   Icon: {fileID: 21300000, guid: 6247abc57157a8a4ca167dc4f79d30b7, type: 3}
-  sfx: {fileID: 0}
+  useSfx: {fileID: 0}
+  addItemSfx: {fileID: 0}
 --- !u!65 &1043918204427501172
 BoxCollider:
   m_ObjectHideFlags: 0
