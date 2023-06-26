@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3241444196433457281}
   - component: {fileID: 3241444196434555457}
   - component: {fileID: 384163578745029706}
+  - component: {fileID: 4788970465432160641}
   m_Layer: 0
   m_Name: int_BA_01_Ceiling_01
-  m_TagString: Untagged
+  m_TagString: Win
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,8 @@ Transform:
   m_GameObject: {fileID: 3241444196432292995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -52,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -95,3 +98,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.4999998, y: 0.10000038, z: 2.4999998}
   m_Center: {x: 0, y: 3.9499998, z: 0.00000035762787}
+--- !u!114 &4788970465432160641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3241444196432292995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca379f2e40e6dc428108a9d46926083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

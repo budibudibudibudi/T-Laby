@@ -40,15 +40,11 @@ namespace UWAK.GAME.ENEMY
                     break;
                 case EnemyState.NULL:
                     break;
-                case EnemyState.CHASE:
-                    anim.Play("run");
-                    agent.isStopped = false;
-                    agent.speed = sprintSpeed;
-                    break;
                 case EnemyState.PATROL:
                     anim.Play("walk");
                     agent.isStopped = false;
                     agent.speed = normalSpeed;
+                    StartCoroutine(Patrolling());
                     break;
                 case EnemyState.ATTACKING:
                     StartCoroutine(Attacking());
@@ -62,29 +58,25 @@ namespace UWAK.GAME.ENEMY
         }
 
 
-        private void Update()
+        private IEnumerator Patrolling()
         {
-            agent.SetDestination(player.position);
-            var front = transform.forward;
-            var dirToPlayer = (player.position - transform.position).normalized;
-
-
-            var dot = Vector3.Dot(front, dirToPlayer);
-
-            if (dot > space && Vector3.Distance(transform.position, player.transform.position) < seeDistance)
+            bool playerInArea = CheckPlayerInArea();
+            if(playerInArea)
             {
-                SetState(EnemyState.CHASE);
+                agent.SetDestination(player.transform.position);
             }
-            if (dot > space && Vector3.Distance(transform.position, player.transform.position) < attackDistance)
+            while (agent.pathStatus == NavMeshPathStatus.PathComplete)
             {
-                if (GetState().Equals(EnemyState.CHASE))
+                playerInArea = CheckPlayerInArea();
+                if (playerInArea)
                 {
-                    SetState(EnemyState.ATTACKING);
+                    agent.SetDestination(player.transform.position);
                 }
-            }
-            if (Vector3.Distance(transform.position, player.transform.position) < patrolDistance && Vector3.Distance(transform.position, player.transform.position) > seeDistance)
-            {
-                SetState(EnemyState.PATROL);
+                else
+                {
+                    SetState(EnemyState.HIDEN);
+                }
+                yield return null;
             }
         }
         private IEnumerator Idle()
@@ -95,15 +87,15 @@ namespace UWAK.GAME.ENEMY
                 agent.isStopped = true;
                 yield return null;
             }
-            SetState(EnemyState.PATROL);
             agent.isStopped = false;
+            SetState(EnemyState.PATROL);
         }
         private IEnumerator Stunned()
         {
+            agent.isStopped = true;
             anim.Play("gethit");
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                agent.isStopped = true;
                 yield return null;
             }
             bool cekArea = CheckPlayerInArea();
@@ -115,11 +107,7 @@ namespace UWAK.GAME.ENEMY
 
         private bool CheckPlayerInArea()
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < patrolDistance && Vector3.Distance(transform.position, player.transform.position) > seeDistance)
-            {
-                return true;
-            }
-            return false;
+            return Vector3.Distance(transform.position, player.transform.position) < patrolDistance;
         }
         private IEnumerator Attacking()
         {
@@ -134,6 +122,7 @@ namespace UWAK.GAME.ENEMY
         {
             if (other.CompareTag("Player"))
             {
+                print("hited");
                 Player.Instance.HealthChange(-GetDamageAmount());
                 GameManager.Instance.ChangeState(GameState.GAMERESUME);
                 SetState(EnemyState.HIDEN);
